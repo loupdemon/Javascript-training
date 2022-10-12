@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les conditions</title>
+
+    <script>
+        //ça affichera sur console
+        console.log('hello les gens')
+        //on installe l'extension go live et on l'ouvre via notre editeur de texte
+        //pour avoir els changeemtns sans forcement rafraichir à chaque fois 
+
+        const age =18
+        if(age > 17) {
+            console.log('vous êtes majeur')
+        }
+        if (age == 18) {
+                console.log('vous avez 18 ans')
+        }
+        const age1 = '18'
+        if (age == 18) {
+                console.log('vous avez 18 ans monsieur A')
+            }
+
+        //vaut mieux utiliser le triple egale
+        if (age === 18) {
+                console.log('vous avez 18 ans monsieur B')
+            }
+        //ainsi pour negation 
+        if (age !== 17) {
+                console.log("vous n'avez pas 17 ans monsieur B")
+            }
+
+
+        //type coercion
+        //une chaine de caractere est false par default 
+        //les valeurs truffy (pour savoir ce qui est considéré comme vrai tableau,true,nombre, chaine caractere,nombrenegatif,infinity )
+        //les valeurs falsy(0,chaine caractere vide '',"",``)
+        if('') {
+            console.log("je ne vais pas m'afficher")
+        }
+        let neg = 0
+        if (neg) {
+                console.log("je ne vais pas m'afficher")
+            }
+        if (''==false) {
+            console.log("je vais m'afficher sur ecran chaine vide")
+        }
+        if ([]) {
+                console.log("je m'affiche tableaur")
+            }
+        if (true) {
+                console.log("je vais m'afficher aussi")
+            }
+
+        //Opéraeurs Logiques
+        const agemoi = 19
+        const pays = 'FR'
+        
+        if (
+            (pays === 'FR' && agemoi >= 18) ||
+            (pays === 'US' && agemoi >= 16)
+        ) {
+            console.log("vous avez le droit de conduire")
+        }
+        //plus simple et plus organisé
+        //quand ona des conditions complexes on peut les separer dans des variables comme ceci
+        const peutconduirfrance = pays=='FR' && agemoi >= 18
+        const peutconduiretatunis = pays == 'US' && agemoi >= 16
+        if (
+            peutconduirfrance || peutconduiretatunis
+        ) {
+            console.log("vous avez le droit de conduire")
+        }
+        else (
+            console.log("vous n'avez pas led roit de condurie")
+        )
+        
+        if (
+            peutconduirfrance && !peutconduiretatunis
+        ) {
+            console.log("vous avez le droit de conduire en france")
+        } else if (peutconduiretatunis) (
+            console.log("vous n'avez pas le droit au USA")
+        )
+        else (
+            console.log("vous n'avez pas led roit de condurie")
+        )
+
+        //comment inverser les bloc les rendre negatifs
+        (pays === 'FR' && agemoi >= 18) ||
+        (pays === 'US' && agemoi >= 16)
+        //ça devient 
+        !(pays === 'FR' && agemoi >= 18) &&
+        !(pays === 'US' && agemoi > 16)
+        //ou comme ça aussi reste pareil
+        (pays !== 'FR' || agemoi < 18) &&
+        (pays !== 'US' || agemoi <= 16)
+
+        //switch
+        switch(pays){
+            case 'FR':
+                console.log("je suis en france")
+                break
+            case 'US':
+                console.log("je susi aux état-unis")
+                break
+            default:
+                console.log('je suis dan sun autre pays')
+                break
+        }
+
+        //exo service streaming
+        //pour demander l'age de l'user
+        const year = 2022
+        const birthyear = prompt('quel est votre année de naissance?')
+        votre_age=year - birthyear
+        if (votre_age<120){
+            if(votre_age<13){
+                console.log("regardez Ponyo")
+            } else if(votre_age>=13 &&  votre_age<18){
+                console.log("regardez fast && furious")
+            } else{
+                console.log("regardez conjuring")
+            }
+        } else(
+            console.log("erreur année naissance sauf si vous êtes un vampire")
+        )
+
+        //exo calcule , trouver eng et positif
+        const nb1 =prompt("votre premier nombre")
+        const nb2 = prompt("votre second nombre")
+        const result = nb1 * nb2
+        let result2 = Number(nb1) +3
+        
+
+        //verifier que result est un nombre en cas ou l'user s'amuser a mettre des chaine de caractere
+        if(isNaN(result)) {
+            console.log('Operation impossible')
+        } else {
+            let signe
+            if (result > 0) {
+                //console.log(`${nb1}*${nb2}=${result} positif`)
+                signe = "postif"
+            } else {
+                //console.log(`${ nb1 } * ${ nb2 } = ${ result } negatif`)
+                signe = "negatif"
+
+            }
+            console.log(`${nb1} * ${nb2} = ${result} est ${signe}`)
+            //tester le caste
+            console.log(`plus 3 du premier nombre ça donnera ${result2} `)
+
+
+        }
+
+   
+
+    </script>
+    
+</head>
+<body>
+    
+</body>
+</html>
