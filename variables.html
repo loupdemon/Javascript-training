@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //declarer variable , variable peut commencer par majuscule mais jamais par nombre
+        //const on peut jamais l'assigner autrement que sa variable initiale 
+        //entier, on peut terminer par ; mais pas obligatoire
+        const a = 3
+        //const on peut pas la modifier car constante
+        //il faut utiliser let ou var
+        let b = 4
+        b = 4
+        var d = 7
+        d = 8
+
+        const chaine = 'hello world'
+        const chaine2 = "hello world"
+        const chaine3 = 'aujourd\'hui'
+        const chaine4 = "aujourd'hui"
+        //saut de ligne
+        const sotLigne = "bienvenu\n Aghiles"
+        //avec backticks
+        const sotligne2 = `salut
+        sam`
+        //concaténation
+        const premiermot = 'salut'
+        const secondmot = 'les gens'
+        //affiche avec:  
+        //premiermot + ' '+ secondmot 
+        //ou avec les backticks et $ en plus simple
+        //`${premiermot} ${secondmot}`
+
+        //pour les booléens
+        const isMajor = null
+        const isMinor = undefined
+
+
+        //tableau , ça supoprte tout type tab, entier, chaine 
+        const notes = [13,8,4,5,2,9,4,
+        'hello',
+        [1,2,3]
+        ]
+        //taille ça nous affichera 9
+        //index 0 ->premier element ainsi de suite
+        //pour afficher element d'un tableau imbriqué exemple :
+        // notes[8][1]
+
+        //Objet
+        const person = {
+            firstname:'john',
+            lastname:'doe',
+            age:24,
+            salaire:[20,15,18,10],
+            job:{
+                name:'mecanicien',
+                hours:35
+
+            },
+            //un moyen de faire appel au variable precedentes definit en haut
+            'les gens':23,
+            [secondmot]:24
+        }
+        //en conole ça donenrait: 
+
+        //person.firstname
+        //->'john'
+
+        //person.job
+        //->{ name: 'mecanicien', hours: 35 }
+
+        //person.salaire
+        //-> (4)[20, 15, 18, 10]
+
+        //person.salaire[2]
+        //->18
+
+        //person.job.hours
+        //->35
+
+        //person.salaire[2]=55 
+    
+        //person['firstname']
+        //->  'samy'
+
+        //rendre une cle dynamique et la chercher 
+        const clef = 'firstname'
+        //person[clef]
+        //->'john'
+
+        //typeof
+        //typeof person
+        //-> 'object'
+
+        //la taille d'un object 
+        //person.salaire.length
+        //->4
+        //notes.length
+        // 9
+
+        //Opérations mathématiques
+        //   60 % 3
+        //->    0 //modulo
+        //    9 * 8
+        //->    72
+        //    10 + 7
+        //->    17
+        //    60 / 3
+        //->    20
+        //2*(4+3/3) //priotité  parenthèse
+
+        //faire gaff
+        //4 + '3'
+        //-> '43' //il considere que 4 comme chaine de caractère
+        //4+3
+        //->7
+        //0.1+0.2
+        //->0.300000001//il faut faire gaff au flottant 
+
+
+        //transformation en numbre et concaténation
+        let monNombre = '74'
+        Number(monNombre) + 3
+
+        //aussi pareil pour d'autres opérations
+        //-> 77
+        //2 * '4'
+        //-> 8
+        //2 * 'a'
+        //-> NaN //not a number
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
