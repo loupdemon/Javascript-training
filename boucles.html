@@ -7,69 +7,100 @@
     <title>boucles</title>
 
     <script>
+        //iterration whine
         let i =0;
         while (i<10){
             console.log('bonjour')
             i=i+1
         }
+    </script>
 
+
+    <script>
+        //parcourir tab
         const notes = [10,20,50,40,30,20,10,50]
         //parcourir les indexes
         for(let k in notes){
             console.log(notes[k])
         }
+            /*
+               10
+               20
+               50
+               40
+               30
+               20
+               10
+               50
+          */
+         //ou ainsi avec     " OF tab = IN tab[i] "
+        //avec of on recupere contenue valeur
+        for (let note of notes) {
+            console.log(note)
+        }
+           /*
+                 10
+                 20
+                 50
+                 40
+                 30
+                 20
+                 10
+                 50
+            */
 
-        //itteration
+        //avec in on recupere index
+            for (let note in notes) {
+                console.log(note)
+            }
+            /*
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+            */
+
+      
+
+        //itteration structure 
         for(let j=0; j<notes.length; j++){
             console.log("salut monsieur")
             console.log(notes[j])
         }
+        for (let note of notes) {
+                console.log("salut madame")
+                console.log(note)
+            }
+        for (let note in notes) {
+            console.log("salut madame")
+            console.log(notes[note])
+        }
+            
 
         const person= {
             firstname:'sam',
             lastname:"dan"
         }
-         //avec in on recupere index
-        for (let note in notes) {
-                console.log(note)
-            }
-            /*
-                boucles.html: 34 1
-                boucles.html: 34 2
-                boucles.html: 34 3
-                boucles.html: 34 4
-                boucles.html: 34 5
-                boucles.html: 34 6
-                boucles.html: 34 7
-                */
-
-        //avec of on recupere contenue valeur
-        for (let note of notes) {
-                console.log(note)
-            }
-            /*
-                boucles.html:37 10
-                boucles.html:37 20
-                boucles.html:37 50
-                boucles.html:37 40
-                boucles.html:37 30
-                boucles.html:37 20
-                boucles.html:37 10
-                boucles.html:37 50
-            */
-
-
+     
         //ça ne fonctionenra pas sur iobjet qui n'est pas iterrable
-        /*for (let note of person){
-            console.log(note)
-        }*/
-        
         /*
-        const greeting = 'bonjour'
-        //pour trouver els index de lettre
-        for(let letter in greeting){
-            console.log(letter)
+        for (let note of person){
+            console.log(note)
         }
+        */
+        
+        
+        const greeting = 'bonjour'
+         for (let letter of greeting) {
+                console.log(letter)
+            }
+        //pour trouver els index de lettre
+       /* for (let letter in greeting) {
+                console.log(letter)
+            }
         */
 
         //exo demander à un user un chiffre entre 0 et 10 et si c'est correct on decremente
@@ -87,7 +118,7 @@
         let guess=4
         let chiffreadeviner
         while(chiffreadeviner!==guess){
-            prompt('devinez le chiffre')*1
+            chiffreadeviner= prompt('devinez le chiffre')*1
             if(chiffreadeviner !== guess){
                 console.log("dommage")
                 if(chiffreadeviner <guess){
@@ -100,12 +131,12 @@
         console.log(`bravo vous avez trouvé, c'est ${guess}`)
 
         //on aurait pu faire avec break comme ceci
-        /*
+        let guess1 = 5
       while (true) {
-            prompt('devinez le chiffre') * 1
-            if (chiffreadeviner !== guess) {
+            chiffreadeviner=prompt('Aller go! devinez le deuxieme chiffre') * 1
+            if (chiffreadeviner !== guess1) {
                 console.log("dommage")
-                if (chiffreadeviner < guess) {
+                if (chiffreadeviner < guess1) {
                     console.log("plus")
                 } else (
                     console.log("moins")
@@ -115,8 +146,8 @@
                 break
             }
         }
-        console.log(`bravo vous avez trouvé, c'est ${guess}`)
-       */
+        console.log(`bravo vous avez trouvé, c'est ${guess1}`)
+       
     </script>
 </head>
 <body>
