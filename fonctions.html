@@ -266,6 +266,62 @@
             }
         }
     </script>
+
+    <script>
+        //calculer la moyenne des élèves
+
+        const students= [
+            {
+                name: 'John',
+                notes:[17,12,14,16,18,20]
+            },
+            {
+                name: 'sam',
+                notes:[5,18,20,35,45,10]
+            },
+            {
+                name: 'nina',
+                notes: [1, 18, 2, 35, 5, 10]
+            }
+        ]
+
+        //calculer moyenne 
+        const moyenne =(notes)=>{
+            let sum =0
+            for(let note of notes){
+                sum=sum+note
+
+            }
+           return sum/notes.length
+        }
+        //trie par ordre decroissant (croissan a.moyenne-b.moyenne)
+       const compareStudent=(a,b)=>{
+            return b.moyenne - a.moyenne
+       }
+
+       //rajout attribut moyenne
+        for(let student of students){
+            student.moyenne = moyenne(student.notes)
+            student.worst = Math.min(...student.notes)
+            student.best = Math.max(...student.notes)
+
+        }
+
+        console.log(students)
+
+        //fonction de trie avec comparstudent(le trie slectif) ou tri à bulle à voir
+        students.sort(compareStudent)
+        
+        //pannel des trois premiers
+        const formatStudent = (student)=>{
+            return `${student.name} avec moyenne ${student.moyenne}, sa meilleure note ${student.best} et pire note ${student.worst}`
+        }
+        console.log(`top 3 étudiants
+        1:${formatStudent(students[0])}
+        2:${formatStudent(students[1])}
+        3:${formatStudent(students[2])}`)
+    
+    </script>
     
 </body>
 </html>
