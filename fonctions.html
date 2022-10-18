@@ -267,6 +267,8 @@
         }
     </script>
 
+
+
     <script>
         //calculer la moyenne des élèves
 
@@ -321,6 +323,99 @@
         2:${formatStudent(students[1])}
         3:${formatStudent(students[2])}`)
     
+    </script>
+
+
+    <script>
+        //compteur de lettre 
+        const phrase = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`
+        //split 
+        //{vous: 3, moi:2}
+        //replace
+
+
+
+        //objet qui regarde les fréquences
+        const frequencies = {}
+        const mot = phrase.split(' ')  //tout depend si on met de l'espace  àl'interieur split ou pas
+        console.log("vois le textes separer par mot")
+        console.log(mot)
+        console.log("--------------------------------------------------")
+
+
+        // ['vous', 'savez,', 'moi', 'je', 'ne', 'crois', 'pas', 'aux', 'vampires']
+        const mot1 = phrase.split('')  //tout depend si on met de l'espace  àl'interieur split ou pas 
+        console.log("vois le textes separer par lettre")
+        console.log(mot1)
+        console.log("--------------------------------------------------")
+
+
+
+        //['v', 'o', 'u', 's', ' ', 's', 'a', 'v', 'e', 'z', ',', ' ', 'm', .........]
+        const ignored =[',','?','.','"','!',':',';']
+        let cleanedPhrase = phrase.toLowerCase()
+        for(let character of ignored){
+            cleanedPhrase=cleanedPhrase
+                .replaceAll(character,'')
+        }
+       
+        /*
+         const mot2 = phrase
+            .toLowerCase()//lowercase rend tout en minuscule contrairement à touppercase
+            .replaceAll(',','') //remplacer virgule apr caractere vide espace
+            .replaceAll('.','') //remplacer virgule apr caractere vide espace
+            .replace('?', '') //remplacer virgule apr caractere vide espace
+            .replace('!', '') //remplacer virgule apr caractere vide espace
+            
+        */
+       const mot2 = cleanedPhrase
+            .split(' ')
+        console.log("vois le textes separer par mot")
+        console.log(mot2)
+        console.log("--------------------------------------------------")
+
+        
+        for (let word of mot2){
+            if(mot !== '' && word.length >= 4){
+                if(frequencies[word]){
+                    //si on a trouvé quelque chose il fait incrementation, quand c'est pas le cas , undefinied par default c'est falsy
+                        frequencies[word]++
+                }else{
+                    frequencies[word]=1
+                }
+            }
+        }
+        console.log("vois le textes avec les mots et leur nombre de repetition")
+        console.log(frequencies)
+        console.log("--------------------------------------------------")
+
+
+        //on veut connaitre les frequences
+        //on crée un nouveau tableau 
+        const frequenciesArray = []
+        //incrementation
+        for(let k in frequencies){
+            //insertion valeur au tableau avec methode push : données
+            frequenciesArray.push({ // on veut pousser de nouveaux objets dans tableau
+                work: k,
+                count: frequencies[k]
+            })
+
+        }
+
+        //organisation trie 
+        frequenciesArray.sort((a,b)=>b.count-a.count)
+
+        console.log("vois le textes avec les mots et leur nombre de repetition en ordre")
+        console.log(frequenciesArray)
+        console.log("--------------------------------------------------")
+
+
+        console.log(`les mots le splus frequents sont:" 
+        ${frequenciesArray[0].work}" avec la frequence "${frequenciesArray[0].count}",
+        "${frequenciesArray[1].work}"avec la frequence "${frequenciesArray[1].count}",
+        "${frequenciesArray[2].work}"avec la frequence "${frequenciesArray[2].count}"`)
+
     </script>
     
 </body>
