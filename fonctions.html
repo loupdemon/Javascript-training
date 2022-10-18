@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonctions</title>
+
+</head>
+<body>
+    <script>
+        //implemntation function
+        //pareil juste portée limité (avec const porté locale)
+        //const canDrive = function(zge,pays){}
+
+        //loawsting JS va mettre les fonctions avant les appels, porté globale
+        //donc on aurait pu mettre le consol.log(candDrive.... avant la deficntion
+        function canDrive(age,pays){
+            if(
+                (age>18 && pays ==="FR") ||
+                (age>16 && pays ==="US")
+            ){
+                return true
+            }
+            return false
+        }
+
+        //call function
+        console.log(canDrive(19,'FR'))
+
+        /* Remarque : 
+        -Quand deux fonction porte le meme nom dans meme bloc
+        seulement premiere fonction sera apelé exemple 
+        if(true){
+            function exemple(){
+                instruct 1
+            }
+        }
+
+        function exemple(){
+            instruct 2
+
+        }
+        //lors de l'appel 
+        console.log(exemple())
+        //c'est function exemple de instruct 1 qui va se passer
+        
+
+        //par contre si je l'ecris ainsi avec cont
+          if (true) {
+                const  exemple= function() {
+                instruct 1
+                }
+            }
+
+            const exemple=function() {
+            instruct 2
+
+            }
+            //lors de l'appel 
+            console.log(exemple())
+                //c'est function exemple de instruct 2 qui va se passer,
+                // car le c,onst porté local dan sle bloc seulement
+         */
+        
+
+         let i =0;
+         function greeting(name){
+            i++
+            console.log(`bonjour ${name}`)
+         }
+        console.log(i) //O
+        greeting('same') //bonjour  same
+        console.log(i)//1
+        greeting('lola')//bonjour lola
+        console.log(i)//2
+
+        //Usage de This
+        //object windows ....
+        function maFonction(){
+            console.log(this)
+    
+        }
+
+        maFonction.call(3)
+
+        const a ={
+            firstname:'john',
+            lastname:'doe',
+            fullname: function(){  //en fonction fléch on aurait écrit: fullname:()=>{}
+                console.log(this)
+                 console.log(`${this.firstname} ${this.lastname}`)
+            }
+        }
+        a.fullname()
+       /* ça renvoie:
+        { firstname: 'john', lastname: 'doe', fullname: ƒ }
+        fonctions.html: 92 john doe
+         */
+
+         //usage des methodes
+         console.log('transforme moi'.toUpperCase())
+         //TRANSFORME MOI
+         //percase est une methode, à trouver toutes les methodes dans MDN/ou devdocs
+         //d'ailleur console est une super variable globale et log est une methode
+
+
+        //Function fléchées
+        const maFonctionFlechee = (param1, param2)=>{
+            console.log(param1,param2)
+        }
+
+        maFonctionFlechee(1,2)
+        //1 2
+
+        //la difference avec fonction normal, comportement de this
+        const maFonctionFlechee1 = (param1, param2) => {
+            console.log(param1, param2, this)
+        }
+
+        maFonctionFlechee1.call(1, 2,3)
+        //1,2, unidefined car this fonctionne pas avec function  flechée,
+        //il ne peut pas alteré, si on enleve les fleche et transforme 
+        //en fonction normal, ça renverau 1,2,3
+
+        //simplifier l'ecriture avec des fonctions flechéees dans certains cas
+        //exemple addition
+        const somme=function (a,b){
+            return a+b;
+        }
+        //ça Devient
+        const somme1 =(a,b)=>a+b
+        console.log(somme(1,2))
+        console.log(somme1(1, 2))
+
+        //Callback: function déclencheur et imbriquée
+        //lorsqu'un paramettre est une fonction, 
+        //on nomme souvent cb au lieu de fn
+
+        const isPair=function (a,fn){
+            if(a%2 === 0){
+                fn(a)
+            }
+        }
+
+        isPair(4,function(n){
+            console.log("mon nombre est pair"+n)
+        })
+
+    </script>
+
+    <script>
+         // creer un nombre entr =e 0et 10
+        //33 essaie pour deviner le mot 
+
+        //usage methode math.floor qui transforme le x flottant en entier avec valeur inferieur. faisant fonction E[x]
+        function getRandomInt(max){
+            return Math.floor(Math.random()*(max+1))
+        }
+
+        const solution = getRandomInt(10)
+
+        console.log(solution)
+
+        function isRight(n){
+            return solution === n
+        }
+
+        function guess(){
+            const number = prompt('entre un chiffre')*1
+            return isRight(number)
+        }
+
+        for (i=0;i<3;i++){
+            if(guess()){
+                console.log("bravo")
+                break
+            }else if(i===2){
+                console.log("vous avez perdu")
+            }
+        }
+
+    </script>
+    <script>
+        //fonction qui dit si un entier est premier ou pas
+        let n =prompt("entrez un chiffre premier")*1
+        function isPremier(n){
+            for(let i=2;i<n;i++){
+                if(n%i===0){
+                    return false
+                }
+            
+            }
+            return true
+        }
+
+        if (isPremier(n)===false){
+            console.log("c'est pas premier")
+        }else(
+            console.log("c'est premier")
+        )
+
+
+        /*exo 
+
+        //afficher tout les nombres premiers entre le n choisis
+        let k=[n]
+        let m=0
+        
+        for(j=n;j>0;j--){
+            while(isPremier(j)==true){
+                k[m]=j
+                m++
+            }
+        }
+        for(let m of k){
+            console.log(k)
+        }  
+        */
+
+        //nombre pair
+        const IsPairNumber = (n) => n%2 === 0
+    </script>
+
+    <script>
+        //entrainement
+        function reverseee(array1){
+            console.log('array1:',array1)
+
+            const reversed = array1.reverse()
+            console.log('reversed:',reversed)
+
+        }
+        const array1 = ['salut', 'mamn', 'papa', 'fils']
+        reverseee(array1)
+
+        //exercice palindrome
+        function isPalindrome(word){
+            //reverse
+            //split //ça divise cheine caractere
+            //join //ça permet de rejoindre le tableau ensemble
+            //toupllerCase
+
+            //const letters =word.split('')
+            //letters.reverse()
+            //const reversedWord = letters.join('')
+            const reverseWord = word
+                .split('')
+                .reverse('')
+                .join('')
+            
+            console.log(reverseWord)
+            return word.toUpperCase() === reverseWord.toUpperCase()
+
+        }
+
+        const words= {
+            kayak:true,
+            sos:true,
+            kayak:true,
+            bonjour:false
+        }
+        for(let word in words){
+            if(isPalindrome(word) !== words[word]){
+                console.error(`isPalindrome (${word})`)
+            }
+        }
+    </script>
+    
+</body>
+</html>
