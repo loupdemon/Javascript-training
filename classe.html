@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class</title>
+</head>
+<body>
+    <script>
+        //dans chaque objet il y a des propriétés , s'il ne sont pas défini, elle se retrouve dans prototype
+        const a =  {a:2}
+        //dans console on regarde a dans ses prototype
+        //comme on eput y acceder sur console avec object.getPrototypeOf(a)
+
+
+        //une chaine de caractere a des méthodes, qui auront leur prototype, et chaque prototype a une méthode de l'objet, (systeme d'heritage de l'objet)
+        //pas besoin de 3 et 4 niveau de profondeur
+        //les prototypes sont des fonctions
+
+       /* str >> String.prototype >> Object.prototype */
+
+
+
+
+
+
+
+
+
+
+
+      //------------------------------------------------------------------------
+    
+      //CLASS
+      console.log("Ma Class avec constructeur et methode ")
+      class Student {
+        //dans les class pas besoind 'utiliser le term function'
+        ecole = 'Mouloud ferraoun'
+
+        //pour definir un constructeurn on crée un constructeur
+        //CONSTRUCTORE
+        constructor (prenom, nom){
+           //console.log(this) //this ici fera reference à l'etudiant qu'on initialise
+           this.prenom = prenom
+           this.nom= nom
+        }
+
+        //on crée une methode qui va donner des notes à nos etudiants
+        //METHODE
+        donneNote (notes){
+            this.notes = notes
+            //grace à ce systeme prototype on peut creer de sméthodes partagées
+        }
+
+        //une methode pour dire si il passe
+        canPass() {
+            return moyenne(this.notes) >= 10
+            //return moyenne(this.notes) >=noteMoyenne
+        }
+
+        //définir un setter
+
+        _points = [] //on definit comme quoi notre points c'est unt ableau si on rentre un variable (non tableau) ça sera lu comme vide 0
+        //exemple : john.points=9 >> ça nous lira vide par contre john._points=[9] ça nous lira 9 
+        set points(v) {
+            //si c'est un tableau on rempli si non on fait rien , on conside point vide
+            if(Array.isArray(v)){
+                this._points = v
+            }  
+          }
+
+        isRich() {
+              return moyenne(this._points) >= 20
+          }
+
+        //getter pour acceder au proprieté magique
+        get nomComplet(){
+            return `${this.prenom} ${this.nom}`
+        }
+
+        //methoode statuiic
+        static noteMoyenne = 10
+        //on l'affichera avec : console.log(student.noteMoyenne)
+           /*
+            student.noteMoyenne=10
+            }
+            */
+
+        static helo(){
+            console.log('Bonjour')
+        }
+        /*
+            pareille que de faire endehors de la class: 
+            const hello =()=>{
+                console.log("bonjour")
+            }
+            const hello =function(){
+                console.log("bonjour")
+            }
+
+            function hello(){
+                console.log("bonjour")
+            }
+        */
+
+
+
+            //variable interne secret privée
+            #secret = []
+
+      }
+
+
+
+
+
+
+    //CLASS d'un prototype
+    //donc la methode sera recherchée dans superclass puis class puis dans object prototype
+    class SuperStudent extends Student{
+        //exemple on imagine un super etudiant passe d'une anéne à une eautre peu importe c'est resultat
+        canPass(){
+            return true
+        }
+        
+        get nomComplet(){
+            return 'Super ' + super.nomComplet //on utilise super pour appeelr le comportement de meme methode definit dans classe parente
+        }
+
+        //constructeur appelant le super
+        constructor(nom, prenom, notes){
+            super(prenom,nom)
+            this._notes=notes
+        }
+
+        //remarque on eput pas acceder aux valeurs internes de class externe à celle ci
+        //car les proprietés privées dependent dans quelle contextes on les utilise
+        //super.#secret //ça ne fonctionnera pas
+
+        //par convention on nomme els proprietés privées avec _nomvariable mais fonctionne aps comme #nomvariable car le # a été introduit recemment
+
+    }
+
+
+      console.log("--------------------------------------------------")
+      console.log("remplissage de données")
+      //typeOf Student >>>>>> 'functon'
+      const john = new Student('John','AZZOUG')
+      const salyn = new Student('Saly', 'TARTORA')
+
+      //superclass
+      const aghiles = new SuperStudent('Aghiles','DOE',[15,18,16])
+
+      console.log("--------------------------------------------------")
+      console.log("appel methode dans classe pour rajout note aux élèves ")
+
+      john.donneNote([10,20,19])
+      //pareil que
+      //john.notse=[10,20,19]
+      salyn.donneNote([5, 10, 12])
+      console.log(john, salyn,aghiles)
+
+
+      console.log("--------------------------------------------------")
+      console.log("voir si l'eleve passe l'année condition et retour bool dans la méthode mise dans moa classe")
+        //calculer moyenne 
+        const moyenne = (notes) => {
+            let sum = 0
+            for (let note of notes) {
+                sum = sum + note
+
+            }
+            return sum / notes.length
+        }
+        //elle sera appelé dans ma classe en haut
+        console.log(john.canPass(), salyn.canPass(), aghiles.canPass())
+        console.log(`pour John:${john.canPass()},
+        pour Salyn ${salyn.canPass()},
+        pour Aghiles ${aghiles.canPass()} `)
+
+
+        console.log("--------------------------------------------------")
+        console.log("voir si l'eleve est riche ou pa en appelant le SETTER")
+        //calculer moyenne points
+        john._points = [50,10,25]
+        salyn._points = [10,20,101]
+        aghiles._points = [1, 20, 1]
+    
+        //elle sera appelé dans ma classe en haut
+        console.log(john.isRich(), salyn.isRich())
+        console.log(`pour John:${john.isRich()},
+        pour Salyn ${salyn.isRich()},
+        pour Aghiles ${aghiles.isRich()} `)
+
+
+    
+        console.log("--------------------------------------------------")
+        console.log("voir les infos jumelet avec fonctionr etunr mise dans nomComplet utilisant GETTER")
+    
+
+        //connaitre les nom compelt 
+        console.log(john.nomComplet, salyn.nomComplet, aghiles.nomComplet)
+
+        //on peut dire que jane et salyn sont des instances de student en programamtion orientée
+    </script>
+
+    <script>
+        //créer differentes methode pour faire un rectangle
+
+        class Rectangle {
+            constructor(width, height){
+                //initialiser les propriété des objets pour pouvoir les réutiliser
+                this.width = width
+                this.height = height
+            }
+
+            get perimeter(){
+                return (this.width + this.height)*2
+            }
+
+            get isValid(){
+                return this.width > 0 && this.height >0
+            }
+            
+            //methode
+            isBiggerThan(shape){
+                //est-ce que le perimetre de l'objet sur lequelle on appelle la methode est plus grand le perimetre passé en parametre
+                return this.perimeter > shape.perimeter
+            }
+        }
+
+        //systeme  d'heritage
+        //notre carré
+        class Square extends Rectangle{
+            //onc hange constructeur
+            constructor(width){
+                super(width,width) //pour le carré largeur et hauteur même
+            }
+        }
+
+        const rectangle1 = new Rectangle(10,20) 
+        console.log(rectangle1.perimeter)//60
+        console.log(rectangle1.isValid)//true
+        const rectangle2 = new Rectangle(-10,20)//-60
+        console.log(rectangle2.isValid)//false
+        const carre = new Square(10)
+        console.log(carre.perimeter)//40
+        //est-ce que carre plus grand que rectangle
+        console.log(carre.isBiggerThan(rectangle1)) //false
+        //est-ce que rectangle plus grand que carre
+        console.log(rectangle1.isBiggerThan(carre)) //true
+
+    </script>
+
+    <script>
+        //on veut gerer une  librairie de livre
+        //premiere classe construit un livre:  nom de livre et nombre de pages
+
+        class Book{
+            #page = 1
+            constructor(title,pages){
+                this.title = title
+                this.pages = pages
+                //this.#page=1
+            }
+
+            //getter
+            get page(){
+                return this.#page
+            }
+
+            //methode pour incrementer les pages
+            nextPage() {
+                if(this.#page < this.pages){
+                    this.#page++
+                }
+            }
+            //methode pour decrementer les pages
+            prevPage() {
+                if (this.#page < this.pages && this.#page !== 1) { //faut page que page = 1pour tourner
+                    this.#page--
+                }
+            }
+
+            close(){
+                this.#page = 1
+            }
+        }
+
+        class Library{
+            //je crée une proprieté books qui sera une liste
+            #books = []
+           /* books= {
+                //on peut organiser els formation ainsi pour mieux classer et filtrer
+                a:[...],
+                b:[...],
+                //ainsi de suite avec c et d et e
+
+            }
+            */
+            addBook(book){
+                //insertion de livre dans tableau
+                this.#books.push(book)
+            }
+
+            addBooks(books){
+                /*
+                for(let book of books){
+                    this.addBook(book)
+                }*/Book
+                //ecrire autrement
+                books.forEach(book => this.addBook(book));
+                //ou ainsi
+                //books.forEach(this.addBook, this);  //ici this ne doit pas être modiféé pour ça on rajoute deuxieme paramettre, d'après les fonctionf léchée
+            }
+
+            findBooksByLetter(letter){
+              /*
+                const found = []
+                for(let book of this.#books){
+                    if(book.title[0].toLowerCase() === letter.tolowerCase()){
+                        found.push(book)
+                    }
+                }
+                */
+               //ecrire differement 
+               return this.#books.filter((book) => book.title[0].toLowerCase() === letter.toLowerCase())
+
+            }
+        }
+
+        const b = new Book('Alaska sanders', 576);
+        console.log(b.page)
+        
+        b.nextPage()
+        console.log(b.page) //lorsque on logue la page on trouve indexe page
+        b.nextPage()
+        console.log(b.page)
+        b.prevPage()
+        console.log(b.page)
+        
+        b.close() //onr evient à page 1
+        console.log(b.page)
+        b.prevPage()
+        console.log(b.page)
+      
+        const l = new Library()
+        l.addBook(b) //ajouter un seul livre
+        l.addBooks([//prendra parametre un tableau de livre et les rajoutera à notre librairie
+            new Book('Ready player one', 100),
+            new Book('Oui-oui', 10),
+            new Book('sillage', 50),
+        ])
+        console.log(l)
+        console.log(l.findBooksByLetter('s')) //utiliser filter
+        
+
+    </script>
+
+    
+</body>
+</html>

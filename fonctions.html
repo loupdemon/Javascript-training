@@ -26,8 +26,10 @@
         }
 
         //call function
+        console.log("essaie age coduite avec 19 ans en france")
         console.log(canDrive(19,'FR'))
-
+        console.log("--------------------------------------------------")
+        ////////////////////////////////////////////////////////////////////////////
         /* Remarque : 
         -Quand deux fonction porte le meme nom dans meme bloc
         seulement premiere fonction sera apelé exemple 
@@ -61,29 +63,35 @@
             console.log(exemple())
                 //c'est function exemple de instruct 2 qui va se passer,
                 // car le c,onst porté local dan sle bloc seulement
-         */
+         *//////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
 
+         console.log("--------------------------------------------------")
+         console.log("repeter bonjour 10 fois avec samy puis lola")
          let i =0;
          function greeting(name){
             i++
             console.log(`bonjour ${name}`)
          }
         console.log(i) //O
-        greeting('same') //bonjour  same
+        
+        greeting('samy') //bonjour  same
         console.log(i)//1
         greeting('lola')//bonjour lola
         console.log(i)//2
+        console.log("--------------------------------------------------")
 
+
+
+
+        console.log("utiser this et appel fonction")
         //Usage de This
         //object windows ....
         function maFonction(){
             console.log(this)
-    
         }
-
         maFonction.call(3)
-
+        console.log("renvoyer le nom prenom")
         const a ={
             firstname:'john',
             lastname:'doe',
@@ -93,6 +101,15 @@
             }
         }
         a.fullname()
+
+        console.log("--------------------------------------------------")
+
+
+
+
+
+
+        console.log("fonction fléchée et usage de THIS")
        /* ça renvoie:
         { firstname: 'john', lastname: 'doe', fullname: ƒ }
         fonctions.html: 92 john doe
@@ -123,6 +140,7 @@
         //il ne peut pas alteré, si on enleve les fleche et transforme 
         //en fonction normal, ça renverau 1,2,3
 
+
         //simplifier l'ecriture avec des fonctions flechéees dans certains cas
         //exemple addition
         const somme=function (a,b){
@@ -137,6 +155,9 @@
         //lorsqu'un paramettre est une fonction, 
         //on nomme souvent cb au lieu de fn
 
+
+        console.log("--------------------------------------------------")
+        console.log("nombre pair ou pas")
         const isPair=function (a,fn){
             if(a%2 === 0){
                 fn(a)
@@ -146,6 +167,7 @@
         isPair(4,function(n){
             console.log("mon nombre est pair"+n)
         })
+        console.log("--------------------------------------------------")
 
     </script>
 
@@ -154,6 +176,7 @@
         //33 essaie pour deviner le mot 
 
         //usage methode math.floor qui transforme le x flottant en entier avec valeur inferieur. faisant fonction E[x]
+        console.log("generateur de nombre avec methode Math.floor ")
         function getRandomInt(max){
             return Math.floor(Math.random()*(max+1))
         }
@@ -162,14 +185,17 @@
 
         console.log(solution)
 
+        console.log("verification si c'est le chiffre à deviner")
         function isRight(n){
             return solution === n
         }
+
 
         function guess(){
             const number = prompt('entre un chiffre')*1
             return isRight(number)
         }
+
 
         for (i=0;i<3;i++){
             if(guess()){
@@ -179,10 +205,18 @@
                 console.log("vous avez perdu")
             }
         }
-
+        console.log("--------------------------------------------------")
     </script>
+
+
+
+
+
+
+
     <script>
         //fonction qui dit si un entier est premier ou pas
+        console.log("dire si c'est un nombre premier ou pas")
         let n =prompt("entrez un chiffre premier")*1
         function isPremier(n){
             for(let i=2;i<n;i++){
@@ -199,7 +233,7 @@
         }else(
             console.log("c'est premier")
         )
-
+        console.log("--------------------------------------------------")
 
         /*exo 
 
@@ -222,7 +256,15 @@
         const IsPairNumber = (n) => n%2 === 0
     </script>
 
+
+
+
+
+
+
     <script>
+        console.log("--------------------------------------------------")
+        console.log("inversement de table")
         //entrainement
         function reverseee(array1){
             console.log('array1:',array1)
@@ -233,8 +275,10 @@
         }
         const array1 = ['salut', 'mamn', 'papa', 'fils']
         reverseee(array1)
+        console.log("--------------------------------------------------")
 
         //exercice palindrome
+        console.log("Palindrome de teste (inversement se lit pareil)")
         function isPalindrome(word){
             //reverse
             //split //ça divise cheine caractere
@@ -265,11 +309,13 @@
                 console.error(`isPalindrome (${word})`)
             }
         }
+        console.log("--------------------------------------------------")
     </script>
 
 
 
     <script>
+        console.log("Calcule de moyennne etudiant et structure données ")
         //calculer la moyenne des élèves
 
         const students= [
@@ -286,7 +332,10 @@
                 notes: [1, 18, 2, 35, 5, 10]
             }
         ]
+        
+        console.log("--------------------------------------------------")
 
+        console.log("fonction calcule moyenne")
         //calculer moyenne 
         const moyenne =(notes)=>{
             let sum =0
@@ -296,7 +345,10 @@
             }
            return sum/notes.length
         }
-        //trie par ordre decroissant (croissan a.moyenne-b.moyenne)
+
+        console.log("--------------------------------------------------")
+        console.log("ordre de tri")
+       //tris par ordre decroissant (croissan a.moyenne-b.moyenne)
        const compareStudent=(a,b)=>{
             return b.moyenne - a.moyenne
        }
@@ -311,9 +363,13 @@
 
         console.log(students)
 
+        console.log("--------------------------------------------------")
+        console.log("methode Sort pour le tri")
+
         //fonction de trie avec comparstudent(le trie slectif) ou tri à bulle à voir
         students.sort(compareStudent)
-        
+        console.log("--------------------------------------------------")
+        console.log("affichage formaté")
         //pannel des trois premiers
         const formatStudent = (student)=>{
             return `${student.name} avec moyenne ${student.moyenne}, sa meilleure note ${student.best} et pire note ${student.worst}`
@@ -322,6 +378,7 @@
         1:${formatStudent(students[0])}
         2:${formatStudent(students[1])}
         3:${formatStudent(students[2])}`)
+        console.log("--------------------------------------------------")
     
     </script>
 
