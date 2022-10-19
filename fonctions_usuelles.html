@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonctions Usuelles</title>
+
+    <script>
+
+    </script>
+</head>
+<body>
+
+    <script>
+        console.log("SENS INVERSE")
+        const notes = [5,12,1,14,15,16]
+        //aller de sens inverse
+        console.log(notes.at(-1))
+        console.log(notes[notes.length - 1])
+        console.log("----------------------------------------------------")
+        console.log("CONCATENATION")
+        //concatener de stableaux ensemble pour les fusionner
+        const array1 = ['a','b']
+        const array2 = ['c', 'd','e']
+        const array3 = ['f']
+        const array4 = array1.concat(array2)
+        const array5 = array3.concat(array4)
+        const array6 = array1.concat(array2,array3)
+        console.log(array5)
+        console.log(array6)
+        console.log("----------------------------------------------------")
+
+        console.log("FILTER")
+        //filtrer un tableau en supprimant quleques elements
+        const goodNotes = notes.filter((note) => note >= 10)
+        console.log(goodNotes)
+        console.log("----------------------------------------------------")
+
+        console.log("RECHERCHE FIND")
+        //find trouver des premiers elements qui correspondent à la condition 
+        const found = notes.find(element => element > 10)
+        console.log(found)
+        //renvoyer l'index du premier element qui correspond à notre condition
+        const isLargeNumber = (element) => element > 13
+        console.log(notes.findIndex(isLargeNumber))//33 qui correpond à 14 dans notre exemple
+        console.log("----------------------------------------------------")
+
+        console.log("FLAT - GROUP")
+        //flat permet d'applatir les niveau de tableau (peut servir pour les regroupeemt)
+        const arr1 = [0,1,2,[[[3,4],5],7,8,9],11]
+        console.log(arr1)
+        //[0, 1, 2, Array(4), 11]
+        console.log(arr1.flat())
+        //[0, 1, 2, Array(2), 7, 8, 9, 11]
+        console.log(arr1.flat(1))
+        //[0, 1, 2, Array(2), 7, 8, 9, 11]
+        console.log(arr1.flat(2))
+        //[0, 1, 2, Array(2), 5, 7, 8, 9, 11]
+        console.log(arr1.flat(3))//comme y a trois tab à l'interieur du coup au dessus de trois tout est déja appati
+        //[0, 1, 2, 3, 4, 5, 7, 8, 9, 11]
+        console.log(arr1.flat(4))
+        //[0, 1, 2, 3, 4, 5, 7, 8, 9, 11]
+        console.log("----------------------------------------------------")
+
+        console.log("FOREACH")
+        notes.forEach((note, index) => {
+            console.log(note, index)
+        })
+        //5  0,12   1,1   2,14   3,15    4,16    5
+        console.log("----------------------------------------------------")
+
+        console.log("FROM ")
+        console.log(Array.from('foo'))
+        //Array["f","o","o"]
+        console.log(Array.from([1,2,3,4], x=> x+x))
+        //Array[2,4,6,8]
+
+        console.log("----------------------------------------------------")
+
+        console.log("INCLUDES VERIFY IF IT'S INCLUDED")
+        const arr8 = ["far","man","car"]
+        console.log(arr8.includes('far'))
+        //true
+        const arr9 = [1,2,3,5]
+        console.log(arr9.includes(2))
+        //true
+
+        
+        console.log("----------------------------------------------------")
+    
+
+
+
+    </script>
+    
+</body>
+</html>
