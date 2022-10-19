@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exception error</title>
+    
+
+    <script>
+        //accessibilité à la page à partir d'unage
+        class Age {
+            constructor(name, age){
+                if(age<19){
+                    throw new Error("vous n'avez pas l'age limite pour acceder à la page ")
+                }
+                const ignored = [',','?',' ','.','_','-','1']
+                if (name ==="") {
+                    throw new Error("vous devez mettre un caractere  ")
+                }
+                this.age = age 
+                this.name = name
+            }
+        }
+        class PromptError extends Error {
+            constructor(name){
+                if (name === '?') {
+                    throw new Error("pas parenthese  ")
+                }
+            }
+
+        }
+
+        /*
+
+        const ages = new Age()
+        //const ages1=prompt(`donnez votre age ${ages.age}`)*1
+        const ages1 = parseInt(prompt(`donnez votre age ${ages.age}`),10)
+        const name1 = prompt(`donnez votre nome ${ages.name}`)
+        console.log(name1,ages1)
+
+        const toto = new Age('toto',2)
+        console.log(toto)
+        */
+
+        //capturer les erreurs
+        function promptAgeUser(){
+            try {
+                const ages2 = parseInt(prompt(`donnez votre age`), 10)
+                const name2 = prompt(`donnez votre nome ${Age.name}`)
+                const r = new Age(name2, ages2)
+                console.log(r)
+                /*
+                const toto = new Age('toto', 2)
+                console.log(toto)*/
+            } catch (e) {
+                throw new Error('saisie incorrecte',{cause:e})
+                //throw new Error('saisie incorrecte', { cause: {code: 404, url : 'https://stackoverflow.com/machinraison'} })
+
+                //console.log(e.message) //si on enleve le message et on met que e on aura tout le message avec alerte uncaught...
+            }
+        }
+        try{
+            promptAgeUser()
+        } catch (e) {
+            /*if(e instanceof PromptError){
+                console.log('prompt Error')
+            }
+            else{*/
+            console.log(e.message, {e})
+            //}
+        }
+
+        /* exemple avec age bien mais message name mauvais 
+                e: Error: age invalide 
+                cause:Error: vous devez mettre un caractere at new Age
+                message:"age invalide"
+
+        */
+
+        /* exemple : avec age mauvais et name valide 
+             e: Error: saisie incorrecte
+            cause: Error: vous n'avez pas l'age limite pour acceder à la page at new Age 
+            message: "age invalide"
+        */
+
+        /* avec code et url: on affiche un code qui signifie telle erreur, lien pour rediriger ou on peut se renseigner*/
+
+
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>l
