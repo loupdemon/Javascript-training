@@ -13,6 +13,10 @@
 <body>
 
     <script>
+
+        //LES METHODES SUR LES TABLEAUX
+        console.log("*************METHODES SUR LES TABLEAUX **************")
+        console.log("----------------------------------------------------")
         console.log("SENS INVERSE")
         const notes = [5,12,1,14,15,16]
         //aller de sens inverse
@@ -86,11 +90,293 @@
         console.log(arr9.includes(2))
         //true
 
+        //au lieu d'ecrriire 
+        //if( a === 'a' || a ==='b' || a==='c')
+        //on écrira
+        //if(['a','b','c'].include(a))
+
         
         console.log("----------------------------------------------------")
     
+        console.log("INDEXOF comme le find,regarde si la valeur existe dans tableau et renvoie son index si non renvoie -1  ") 
+        const animaux = ['ant','bison','camel']
+        console.log(animaux.indexOf('camel'))
+        //expected output: 2
+        console.log(animaux.indexOf('tortle'))
+        //expected output : -1
+
+        console.log("----------------------------------------------------")
+
+        console.log("JOIIN permet de rejoindre des elements en enlevant les liaisons")
+        const champs=['cré','tableau','crayon']
+        console.log(champs)
+        //exemple tout concatener sans espace
+        console.log(champs.join(''))
+        //exemple concatener avec ce caractere entre elemnt  -_
+        console.log(champs.join('-_'))
+
+        
+        console.log("----------------------------------------------------")
+
+        console.log("REVERSE, ça renverse le tableau, ça modifie le tableau original")
+        const etoiles = [1, 2, 5, 8, 9]
+        console.log(etoiles)
+        console.log(etoiles.reverse())
+
+        console.log("----------------------------------------------------")
+
+        console.log("MAP prend le 1er  parametre fonction, permet d'alterer els elements pour transformer en tableau ")
+        const arrX= [1,2,3,4,5]
+        //transforme tab
+        const map1=arrX.map(x=>x+2)
+        console.log(map1)
+
+        const person= [
+            {firstname: 'john', name:'lane'},
+            { firstname: 'jenny', name: 'saunne' }
+            , { firstname: 'simpsons', name: 'bart' }
+            , { firstname: 'alon', name: 'lcrevette' }
+        ]
+        console.log(person[1])
+        //map renverra un tabkleau avec taille originale
+        console.log(
+            person.map((p)=> p.firstname + ' ' + p.name)
+            .join('\n')//avec caractere d'un sot de ligne
+        )
+
+        console.log("----------------------------------------------------")
+
+        console.log("SLICE, recuperer une partie du tableau à partir de l'element voulu jusqu'à element souhaité (interval dans lequelle on prend)")
+        const compagnie=['riadh','lotfi','hicham','imad','walid']
+        console.log(compagnie)
+        console.log(compagnie.slice(2))
+        console.log(compagnie.slice(1,3))
+
+        console.log('avec reverse on modifie tab original mais on peut remercdier à cela slice suivi par reverse')
+        console.log(compagnie.slice().reverse())
+        console.log(compagnie)
+
+        
+
+        console.log("----------------------------------------------------")
+
+        console.log("POP enlever dernier element du tableau, elle affecte le tableau")
+        const plants= ['broccoli','cauliflower','cabbage','kale','tomate']
+        console.log(plants)
+        console.log(plants.pop())
+        console.log(plants)
 
 
+        console.log("----------------------------------------------------")
+
+        console.log("SHIFT, retire le premeir element du tableau")
+        console.log(plants.shift())
+        console.log(plants)
+
+        console.log("----------------------------------------------------")
+
+        console.log("SPLICE, permet de modifier un element dans un tableau, en supprimant et remplaçant l'existant")
+        const months = ['jan','march','april','june']
+        console.log(months)
+        console.log('insert at index when splice has 1 insert FEB')
+        months.splice(1, 0, 'FEB')  //value.splice('endroit oum ettre index','replace or insert','contenue à mettre')
+        console.log(months)
+        console.log('insert at index when splice has 0 exemple relace June by MAY ')
+        months.splice(4,1,'MAY')
+        console.log(months)
+        console.log('insert at index when splice has 1 exempel June')
+        months.splice(5, 0, 'JUNE')
+        console.log(months)
+
+         
+
+
+
+        console.log("----------------------------------------------------")
+
+        console.log("PUSH, permet d'envoyer l'element dans kle tableau et ça modifie le tableau original")
+        const relever=[13,20,15,14,18,20,15]
+        console.log(
+            relever.reduce((acc,note) => 
+                 acc + note // avec l'accumulateur pour avoir un ensemble d'element et retourner qu'une seule sortie 
+                //return (((((13+20)+15)+14)+18)+20)+15 ça concatene à chaque boucle ça renverait 115
+                , 0))
+
+        //reduceright fait meme choses lecture element de gauche à droite 
+         console.log(
+                relever.reduceRight((acc, note) =>{
+                    return acc + note // avec l'accumulateur pour avoir un ensemble d'element et retourner qu'une seule sortie 
+                    //return (((((15+20)+18)+14)+15)+20)+13 ça concatene à chaque boucle ça renverait 115
+                }, 0))
+
+        console.log("----------------------------------------------------")
+
+        console.log("UNSHIFT, inserer au debut du tableau")
+        const art=['bottocelo','angelo','raffael']
+        console.log(art)
+        console.log(art.unshift('davinci')) //return 4 nouvelle taille tableau
+        console.log(art)
+        //on peut dire que splice('0','1','valeur') === unshift('valuer')
+
+       
+
+    </script>
+
+
+
+
+    <script>
+        //LES METHODES SUR LES OBJETS
+        console.log("*************METHODES SUR LES OBJETS**************")
+        console.log("----------------------------------------------------")
+
+        console.log("ASSIGN - permet d'assigner un objet à une autre objet")
+        const target = {a:1,b:2}
+        const source = {b:4,c:5}
+        console.log(target)
+        console.log(source)
+        const returnedTarger= Object.assign(target, source) //ajouter source dans target , donc target changera mais pas source
+        console.log('on fait un assign sur les tab')
+        console.log(target)
+        console.log(source)
+        console.log(returnedTarger === target)
+
+        //on peut utiliser assign pour creer de nouveau objet tout en recuperant les proprieté de l'objet sur lequel on s'est basé exemple 
+        const eleve = {firstname:'said',lastname:'darbouh'}
+        const p = Object.assign({},eleve)
+        console.log(p)//{firstname: 'said', lastname: 'darbouh'}
+        p.firstname= 'manus'
+        console.log(p) //{firstname: 'manus', lastname: 'darbouh'}
+        console.log(eleve)//{firstname: 'said', lastname: 'darbouh'}
+
+
+        console.log("----------------------------------------------------")
+        console.log("CREATE - permet de creer un nouvel objet en utilisant la syntaxe d'un objet existant")
+        const prof = {
+            isHuman: false,
+            printIntroduction: function(){
+                console.log(`my name is ${this.name}. Am I human? ${this.isHuman}`);
+            }
+        };
+        const me = Object.create(prof)
+        me.name = 'Matthew';//name est attribué à me mais pas dans prof
+        me.isHuman = true;
+
+        me.printIntroduction();
+        me.name = 'IT';//name est attribué à me mais pas dans prof
+        me.isHuman = false;
+        me.printIntroduction();
+
+
+        console.log("----------------------------------------------------")
+        console.log("DEFINEPROPERTY - definir une property comme si on faisait un constructeur avec un setter")
+        class A {
+            constructor(){
+                this.filed = 3
+            }
+
+            set field (v){
+                console.log('hello')
+            }
+        }
+        const a = new A()
+        console.log(a) //A {filed: 3}
+
+        //ça revient à faire --------------------------
+        class B{
+            
+            constructor(){
+
+            }
+        }
+        const b = new B()
+        console.log(b) //B {} ça n'affichera pas encore car rien dedant
+
+        Object.defineProperty(b,'field',{
+            value:3
+        })
+        console.log(b)// B { field: 3 }
+
+
+        console.log("----------------------------------------------------")
+        console.log("ENTRIES - ")
+        const enfant =  { firstname: 'mayas', lastname: 'azzoug' }
+        Object.entries(enfant)
+        console.log(Object.entries(enfant))
+
+        console.log("ça permet de faire une boucle off sur les objets ce qui n'est pas autorisé auparavant, enrecuprerant key et value")
+        const object1 = {
+            a: 'something',
+            b:42,
+        };
+
+        for(const[key,value]of Object.entries(object1)){
+            console.log(`${key}: ${value}`)
+        }
+
+
+        console.log("----------------------------------------------------")
+        console.log("FREEZE - permet de geler un objet ne plus permettre d'unifier et autre action,histoire de securiser ")
+        const obj = {
+            prop: 42
+        };
+        Object.freeze(obj);
+        obj.prop = 33;
+        console.log(obj.prop); // ça ne changera pas la valeur de prop
+
+        console.log("----------------------------------------------------")
+     
+        console.log("KEYS- permet d'avoir un tableau avec plusieurs clés ")
+            // const enfant = { firstname: 'mayas', lastname: 'azzoug' }
+        Object.keys(enfant)
+        console.log(Object.keys(enfant))
+        console.log("VALUES- permet d'avoir un tableau avec plusieurs Valeurs des clés comme un map ")
+        console.log(Object.values(enfant))
+
+
+    </script>
+
+
+
+    <script>
+        //LES METHODES SUR LES FONCTIONS
+        console.log("*************METHODES SUR LES FONCTIONSS**************")
+        console.log("----------------------------------------------------")
+        console.log("APPLY - permet d'appeler la fonction en lui passant une valeur")
+
+        const numbers = [5,8,7,4,1,2]
+        const max = Math.max.apply(null,numbers)
+        const min = Math.min.apply(null, numbers)
+
+        console.log(max) //8
+        console.log(min)//1
+
+        console.log("----------------------------------------------------")
+        console.log("BIND - permet de geler un fonction")
+
+        function hello (){
+            console.log(this)
+        }
+
+        const hello2 = hello.bind(3)
+        console.log(hello())
+        console.log(hello2())//3
+        console.log(hello2.call(4))//3 tjrs
+        console.log(hello2.bind(4).call(4)) //3 ça ne changera pas même si on rebind  
+
+        console.log("----------------------------------------------------")
+        console.log("CALL - permet de'appeler la fonction et lui passer des valeurs les uns apres els autres")
+        function Product(name,price){
+            this.name = name;
+            this.price = price;
+        }
+
+        function Food(name, price){
+            Product.call(this,name,price);
+            this.category = 'food';
+        }
+
+        console.log(new Food('cheese',5).name)
 
     </script>
     
