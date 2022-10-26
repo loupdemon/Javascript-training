@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+</head>
+<body>
+    <script>
+        console.log("----------------------------------------------------")
+        console.log("methode synchrone avec Date.now - synchrone il attendra tjrs la find 'une tache avant debut de l'autre")
+        function wait(duration){
+            //methode permet de recuperer le nombre d eseconde coulé depuis 1er janvier 1970 timestamp
+            const t = Date.now()
+            //voici une maniere synchrone d'attendre
+            //les fonctions se font successivement apres que chacune est terminé et puis le l'execussion final suit
+            while(Date.now()-t <duration){
+
+            }
+
+        }
+
+        console.log('bonjour')
+        wait(1000)
+        console.log('les gens')
+
+        console.log("----------------------------------------------------")
+        console.log("methode asynchrone avec setTimeout, fonction asynchrone en aps rester bloqué sur l'instruction en attente, il exécutera les suivantes, clear interval pour arreter setinterval")
+
+        setTimeout(() => {
+            console.log('bonsoir les filles')
+        },1000)
+        console.log("----------------------------------------------------")
+        console.log("SetInterval, calcule que chaque interval et réexecute")
+        const t = setInterval(() => {
+            console.log("je m'affiche chaque seconde")
+        }, 500)
+        console.log(t)
+        let k =0
+        const i = parseInt(prompt(`cliquer sur 1 ${k}`), 10)
+        if(i===1){
+            clearInterval(t)
+        }
+
+        console.log("----------------------------------------------------")
+        console.log("afficher 5 fois avec while et setTimeout")
+        let v = 0
+        while (v<6) {
+             setTimeout(() => {
+                console.log(`je m'affiche la touteeee ${v} fois`)
+            }, 1000)
+            v++
+            
+        }
+        
+        console.log("----------------------------------------------------")
+        console.log("afficher 5 fois autrement avec setinterval et clear interval")
+        let su=0
+        const fu= setInterval(() => {
+                su++
+                console.log(`je m'affiche la ${su} fois`)
+                if(su>=10){
+                    clearInterval(fu)
+                }
+            }, 1000)
+
+        console.log("----------------------------------------------------")
+        console.log("appel recursive en decomptant")
+        function decompte(n){
+             console.log(n)
+             if(n===0){
+                return 
+             }
+             setTimeout(()=>{
+                decompte(n-1)
+             },1000)
+        }
+
+        decompte(3)
+       
+
+    </script>
+    
+</body>
+</html>
