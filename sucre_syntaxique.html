@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sucre syntaxique</title>
+
+</head>
+<body>
+    <script>
+        console.log("----------------------------------------------------")
+        console.log("SUCRE SYNTAXIQUE - incrementation  ") 
+        const double = (n) => n*2 //quand le paramettre est unique dans fonction fléché on a nul besoin d'ecrire les parenthese : 
+        //const double = n => n * 2
+        console.log(double(3))//6
+        const double1 = function(n) { return n*2 }
+        console.log(double1(3)) //6
+
+        console.log("----------------------------------------------------")
+        console.log("CONDITION LOGIQUE  ") 
+       // < condition > ? <valeur si condition vrai> : <valeur si condition fausse>
+        console.log("SI A été défini ON LUI DONNE A SI NON C'EST cette valeur ") 
+        const a =0 
+        const b = a || 3
+        console.log(b)
+
+        // Ces opérateurs peuvent aussi être utilisé lors de l'assignation
+        //   a ||= 3 // Equivalent à a = a || 3
+        //   a &&= 3 // Equivalent à a = a && 3
+
+        console.log("----------------------------------------------------")
+        console.log("CONDITION exécussion de fonction  ")
+        console.log("SI fn1() ou fn2(), premier si elle est correcte deuxieme sera pas exécuté, si ellee st fause , la deuxieme sera exécutée ")
+        function fn1(n){
+            if (n<10){ 
+                return true
+            }
+            return false
+        }
+        function fn2(x) {
+            if (x > 10) { return true }
+            return false
+        }
+        const c = fn1(3) || fn2(1)
+        console.log(c)
+        console.log("SI fn1() ou fn2(), premier si elle est correcte deuxieme sera pas exécuté, si ellee st fause , la deuxieme sera exécutée ")
+        const d = fn1(12) || fn2(11)
+        console.log(d)
+        console.log("SI fn1() et fn2(), premier si elle est correcte deuxieme sera exécuté, si ellee st fause , la deuxieme sera pas exécutée ")
+        let p = 0
+        let e = p && 2
+        console.log(e)
+        p = 2
+        e = p && 6
+        console.log(e)
+        console.log("SI fn1()?? fn2(), la valeur de gauche sera utilisée tout le temps sauf en cas null ou unefined ")
+        let g = null
+        let f= g??-2
+        console.log(f)
+        g=0
+        f=g??5
+        console.log(f)
+
+        console.log("----------------------------------------------------")
+        console.log("on utilise ? exemple dans variable d'un objet person.job?.name quand on est pas sur que telle objet existe ")
+        const person = {firstname: 'John', job: null}
+        console.log(person.job?.name) //undefined
+        const person1 = { firstname: 'John', job: 'plomberie' }
+        console.log(person1.job?.toString())//plomberie
+        const person2 = { firstname: 'John', age:2 }
+        console.log(person1?.age?.toString())//plomberie
+
+        console.log("----------------------------------------------------")
+        console.log("Destructuration d'element tableau ")
+        const [premierenote, deuxiemenote]=[12,25,84]
+        console.log(premierenote,deuxiemenote)//12  25 witout 84 car nos assignée
+        const [first,...othergreee]=['chat','blo','ane','dro',"som",'kack']
+        console.log(first,othergreee) //chat  ['blo', 'ane', 'dro', 'som', 'kack']
+
+        console.log("----------------------------------------------------")
+        console.log("Destructuration objet fonction ")
+        const {firstname:prenom ,lastname:nom}={
+            firstname:'sam',
+            lastname:'dahvi',
+            age:4
+        }
+        console.log(prenom,nom)//sam dahvi
+        const { isme,...rest } = {
+                isme: 'bahlou',
+                fam: 'dahvi',
+                ages: 4
+            }
+        console.log(isme)//bahlou
+        console.log(isme,rest) //bahlou {fam: 'dahvi', ages: 4}
+         /*
+        function canDrive({agess,pays, region = 'paris'}){ //definir paris par defaut afin d'eviter d'avoir undefined si quelqu'un ne met aps de valeur à region
+         // if(region === undefined){
+          //      region= 'paris'
+           // } 
+           //
+            console.log(region)
+            return true
+
+        }
+        canDrive({agess:18,pays:'FR',region:'alsace'})
+        console.log(canDrive())
+         */
+
+        console.log("----------------------------------------------------")
+        console.log("condition fonction si parametre definit ou pas par default pour eviter undefined")
+        function pow(n, power=2){
+            let element = 1
+            /*
+            if(power === undefined){
+                power = 2
+            }
+            */
+            for (let index = 0; index < power; index++) {
+                 element = element*n;
+ 
+            }
+            return element
+        }
+        console.log(pow(3))
+        console.log(pow(3,5))
+        
+        console.log("----------------------------------------------------")
+        console.log("ajout d'element dans tab")
+        const chiffre =[1,2]
+        console.log(chiffre)
+        chiffre.push(3)
+        console.log(chiffre)
+        console.log([...chiffre,5,6,4])
+        console.log([5,6,...chiffre, 4])
+
+        console.log("----------------------------------------------------")
+        console.log("un autre moyen de faire reverse sans ecraser le tableau reel comme si on faisait notes.slice().reverse() = [...notes].reverse()")
+        console.log([...chiffre].reverse())
+
+        console.log("----------------------------------------------------")
+        console.log("reutiliationd e sproprietés pourr ecreer de sobjets")
+        const prof = {firstname: 'mattheiu',lastname:'lagarde'}
+        console.log(prof)
+        console.log({...prof,age: 20,ville: 'lyon'})
+        console.log("on essaye de mofier l'une des proprieté hérité")
+        console.log({ ...prof, firstname:"celoul",age: 20, ville: 'lyon' })
+        console.log("tjrs dernier element qui pese, si je rajoute l'heritage proprietés à la fin, celel ci seront pris en charge")
+        console.log({ firstname: "celoul", age: 20, ville: 'lyon', ...prof })
+
+        console.log("----------------------------------------------------")
+        console.log("Syntaxe ternaire-")
+        let age = 18
+        let message
+            if (age >= 18) {
+                message = 'Vous pouvez entrer'
+            } else {
+                message = 'Vous ne pouvez pas entrer'
+            }
+        console.log(message)
+
+        const messagea = age >= 18 ? 'Vous pouvez entrer' : 'Vous ne pouvez pas entrer'
+        console.log(messagea)
+
+        console.log("----------------------------------------------------")
+        console.log("ternaire imbriquétaxe ternaire-")
+        //console.log(age >= 18 ?(pays== 'fr'?'conduire':'')  : 'mineur')
+
+
+        //
+    </script>
+
+    
+</body>
+</html>
