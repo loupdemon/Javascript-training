@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const p= new Promise((resolve, reject) =>{
+            resolve(4)
+            //reject(5)
+        })
+        
+        p.then((n)=>{
+            console.log(`le nombre`, n)
+        }).catch((e) => {
+            console.log(`echec`, e)
+        })
+
+        /*p.catch((e)=>{
+            console.log(`echec`,e)
+        })*/ 
+
+        console.log("--------------------------------------------------")
+        console.log("Des callback sur des promesses qui s'enchenent ")
+
+        const promise1 = new Promise((resolve,reject)=>{
+            resolve(1)
+        })
+
+        promise1.then((m)=>{
+            console.log('voici premiere',m)
+        })
+        .then((m)=>console.log(`le nombre 2`,m))
+        .catch((e)=>{
+            console.log(`erreur`,e)
+            return 2
+        })
+        .then(n => console.log)
+        .finally(() =>console.log('aaaa')) //le finally s'execute quoiqu'il arrive , que la promesse soit resolu ou non.
+
+
+        console.log("--------------------------------------------------")
+        console.log("Des callback sur des promesses qui s'enchenent ")
+
+        const promise2 = new Promise((resolve, reject) => {
+                resolve(5)
+            })
+
+        function wait(duration) {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => resolve(duration), duration)
+                })
+            }
+        function waitAndFall(duration) {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => reject(duration), duration)
+                })
+            }
+        
+            wait(2000)
+            .then(()=>{
+                console.log('attendte 1s')
+                return wait(1000)
+            })
+            .then(()=>{
+                console.log('attente 2s')
+                return waitAndFall(2000)
+
+            }).catch(()=>null)//pour enlever message d'erreur disant qu'il ne capture as d'erreur 'uncaughit)'
+
+
+       console.log("--------------------------------------------------")
+        console.log("eviter callback avec cette methode try catch")
+
+        async function main(){
+            try{
+                await wait(2000)
+                console.log('attendre')
+                await wait(1000)
+                console.log('encore attendre')
+                await waitAndFall(2000)
+                console.log('bonsoir')
+            } catch(e){
+                console.log('Error')
+            }
+           
+        }
+        main()
+
+        console.log("--------------------------------------------------")
+        console.log("TOP level await")
+
+        
+        async function work(){
+            const duration = await wait(8000)
+            console.log(`Duration is : ${duration}` )
+            return 5
+        }
+        work().then(n=>console.log)
+        
+
+        console.log("--------------------------------------------------")
+        console.log("usage de throw new error() ")
+
+        /*async function main(){
+            throw new Errorr()
+        }*/
+        /*const main = async(){
+
+        }*/
+        /*
+        console.log(main())*/
+
+        console.log("--------------------------------------------------")
+        console.log("Promise.all() ")
+        //permet d'attraper tout et de renvoyer soit tout si totu fonctionne ou de renvoyer celle echouer
+        //Promise.all([wait(1000), wait(2000)]).then(console.log).catch(console.log) //ici ça affiche tavbleau,  [100,2000]
+        //Promise.all([waitAndFall(1000),waitl(2000)]).then(console.log).catch(console.log) //ici ça renvoit 1000
+        Promise.all([wait(1000), waitAndFall(2000)]).then(console.log).catch(console.log) //iciça renvoit 2000
+
+        console.log("--------------------------------------------------")
+        console.log("Promise.allSettled() ")
+        Promise.allSettled([wait(1000), wait(2000)]).then(console.log).catch(console.logr)//ça affiche tableau d'objet,  [100,2000]
+
+        console.log("--------------------------------------------------")
+        console.log("Promise.any() ")
+        Promise.any([wait(1000), wait(2000)]).then(console.log).catch(console.error)//ça affiche tableau d'objet,  [100,2000]
+
+        console.log("--------------------------------------------------")
+        console.log("Promise.race() ")
+        Promise.race([waitAndFall(1000), waitAndFall(2000)]).then(console.log).catch(console.error)//ça affiche tableau d'objet,  [100,2000]
+
+
+        console.log("--------------------------------------------------")
+        console.log("Concept du fil principal et waitthink : promesse résolu vient au depart  fil principal et fil secondaire")
+
+
+        //ce qui est asyncrone c'est ce qu'on met dans then et non pas dans al fonction
+        //donc gello les gens sera appelé avant, puis y aura r(2)
+        function waitSync(duration){
+            const t = Date.now()
+            while(Date.now() - t < duration){}
+
+        }
+
+        const p3 = new Promise((r) =>{
+            console.log('hello')
+            r(2)
+        })
+        p3.then(()=>console.log('je serai appelé à la fin '))
+        waitSync(2000)
+        console.log('les animaux')
+
+        console.log("--------------------------------------------------")
+        console.log("actionner apres attente")
+        async function attente(duration, msg){
+            await wait(duration)
+            console.log(msg)
+        }
+        //is the sam
+        function attente1(duration,msg){
+            return wait(duration).then(()=>console.log(msg))
+            //surtout ne pas faire return await wait (....) car on cree un autre niveau d epromesse pour rien, et on perd en performance.
+        }
+    </script>
+    
+</body>
+</html>
