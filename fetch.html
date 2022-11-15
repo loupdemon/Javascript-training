@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+</head>
+<body>
+    <script>
+        
+        console.log("--------------------------------------------------")
+        console.log("APPEL API ")
+        const r = fetch('https://jsonplaceholder.typicode.com/users',{
+
+        }).then(r => console.log(r))
+        
+        /*
+        Response {type: 'cors', url: 'https://jsonplaceholder.typicode.com/users', redirected: false, status: 200, ok: true, …}
+                    body: (...) ReadableStream
+                    bodyUsed: false
+                    headers :  Headers {}
+                    ok:true
+                    redirected: false
+                    status: 200
+                    statusText:"OK"
+                    type:"cors"
+                    url:"https://jsonplaceholder.typicode.com/users"
+                    [[Prototype]]: Response
+        */
+        //et si on part dans inspection code partie reseau, on voit qu'il y a bien contact api
+    </script>
+
+    <script>
+        
+        console.log("--------------------------------------------------")
+        console.log("RESPONSE.TEXT pour recuperer le data en json ")
+        const m = fetch('https://jsonplaceholder.typicode.com/users', {
+
+        }).then(m => m.text()).then(body=>console.log(body))
+
+        console.log("--------------------------------------------------")
+        console.log("RESPONSE.JSON pour recuperer le data en json ")
+        const l = fetch('https://jsonplaceholder.typicode.com/users', {
+
+        }).then(l => l.json()).then(body => console.log(body))
+
+    </script>
+
+    <script>
+        console.log("--------------------------------------------------")
+        console.log("Methode GET, fetch function ")
+        
+        async function fetchUser(){
+            const fetchData= await fetch('https://jsonplaceholder.typicode.com/users',
+            {
+                methode:'GET',
+                headers:{
+                "Accept":'aapplication/json' //pour dire qu'on attend du json
+            }})
+            //attendre que promesse soit résolue
+            if(fetchData.ok === true){
+                //true veut dire on a reponse de type 200
+                //une reponse considéré ok si son statut superieur à 200 et inferieur à 400
+                const data = await fetchData.json(); //on parse nos données capturées
+                return data
+                //ou on fait directement  sans await
+                //return fetchData.json()
+            }
+            throw new Error('impossible de contacter le serveur')
+        }
+        fetchUser().then(users => console.log(users))
+    </script>
+
+    <script>
+        console.log("--------------------------------------------------")
+        console.log("Methode POST, fetch function ")
+
+         async function fetchArticle() {
+            //creer de nouveaux articles
+                const fetchDataPost = await fetch('https://jsonplaceholder.typicode.com/posts',
+                    {
+                        methode: 'POST',
+                        headers: {
+                            "Accept": "aapplication/json", //pour dire qu'on attend du json
+                            "Content-Type":"application/json"
+                        },
+                        //on peut ecrire differement 
+                        //body:'{"title":"mon premier article"}'
+                        body: JSON.stringify({title:'Mon premier titre'})
+                    })
+
+                    //pour connaitre quel type de content type pour ne aps mettre une clé qui n'existe pas
+                    console.log(fetchDataPost.headers.get('aze'))
+                //attendre que promesse soit résolue
+                if (fetchDataPost.ok === true) {
+                    return fetchDataPost.json();
+                }
+                throw new Error('impossible de contacter le serveur')
+            }
+            fetchArticle().then(posts => console.log(posts))
+    </script>
+
+    <script>
+        console.log("--------------------------------------------------")
+        console.log("Post methode")
+
+        async function fetchArticleNombre() {
+            //creer de nouveaux articles
+            const fetchDataPost = await fetch('https://jsonplaceholder.typicode.com/posts' )
+
+            //attendre que promesse soit résolue
+            if (fetchDataPost.ok === true) {
+                return fetchDataPost.json();
+            }
+            throw new Error('impossible de contacter le serveur')
+        }
+        fetchArticleNombre().then(posts => console.log(posts))
+    </script>
+
+    <script>
+        console.log("--------------------------------------------------")
+        console.log("Limit and Delay, and AborController , signal ")
+
+        const a = new AbortController()
+
+
+        Promise.race([
+            fetch('https://jsonplaceholder.typicode.com/posts/?_limit=5&_delay=2000',{
+                signal: a.signal
+            }),
+            
+            fetch('https://jsonplaceholder.typicode.com/users/?_limit=3',{
+                signal: a.signal
+            })
+
+        ]).then(item => item.json()).then(body =>{
+            a.abort()
+            console.log(body) }
+            )
+    </script>
+    
+</body>
+</html>
