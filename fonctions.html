@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fonctions</title>
-
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        //implemntation function
-        //pareil juste portée limité (avec const porté locale)
-        //const canDrive = function(zge,pays){}
+      //implemntation function
+      //pareil juste portée limité (avec const porté locale)
+      //const canDrive = function(zge,pays){}
 
-        //loawsting JS va mettre les fonctions avant les appels, porté globale
-        //donc on aurait pu mettre le consol.log(candDrive.... avant la deficntion
-        function canDrive(age,pays){
-            if(
-                (age>18 && pays ==="FR") ||
-                (age>16 && pays ==="US")
-            ){
-                return true
-            }
-            return false
+      //loawsting JS va mettre les fonctions avant les appels, porté globale
+      //donc on aurait pu mettre le consol.log(candDrive.... avant la deficntion
+
+      /**
+       * @param {number} age
+       * @param {string} pays
+       * @returns
+       */
+
+      function canDrive(age, pays) {
+        if ((age > 18 && pays === "FR") || (age > 16 && pays === "US")) {
+          return true;
         }
+        return false;
+      }
 
-        //call function
-        console.log("essaie age coduite avec 19 ans en france")
-        console.log(canDrive(19,'FR'))
-        console.log("--------------------------------------------------")
-        ////////////////////////////////////////////////////////////////////////////
-        /* Remarque : 
+      //call function
+      console.log("essaie age coduite avec 19 ans en france");
+      console.log(canDrive(19, "FR"));
+      console.log("--------------------------------------------------");
+      ////////////////////////////////////////////////////////////////////////////
+      /* Remarque : 
         -Quand deux fonction porte le meme nom dans meme bloc
         seulement premiere fonction sera apelé exemple 
         if(true){
@@ -63,179 +66,156 @@
             console.log(exemple())
                 //c'est function exemple de instruct 2 qui va se passer,
                 // car le c,onst porté local dan sle bloc seulement
-         *//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+         */ /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-         console.log("--------------------------------------------------")
-         console.log("repeter bonjour 10 fois avec samy puis lola")
-         let i =0;
-         function greeting(name){
-            i++
-            console.log(`bonjour ${name}`)
-         }
-        console.log(i) //O
-        
-        greeting('samy') //bonjour  same
-        console.log(i)//1
-        greeting('lola')//bonjour lola
-        console.log(i)//2
-        console.log("--------------------------------------------------")
+      console.log("--------------------------------------------------");
+      console.log("repeter bonjour 10 fois avec samy puis lola");
+      let i = 0;
+      function greeting(name) {
+        i++;
+        console.log(`bonjour ${name}`);
+      }
+      console.log(i); //O
 
+      greeting("samy"); //bonjour  same
+      console.log(i); //1
+      greeting("lola"); //bonjour lola
+      console.log(i); //2
+      console.log("--------------------------------------------------");
 
+      console.log("utiser this et appel fonction");
+      //Usage de This
+      //object windows ....
+      function maFonction() {
+        console.log(this);
+      }
+      maFonction.call(3);
+      console.log("renvoyer le nom prenom");
+      const a = {
+        firstname: "john",
+        lastname: "doe",
+        fullname: function () {
+          //en fonction fléch on aurait écrit: fullname:()=>{}
+          console.log(this);
+          console.log(`${this.firstname} ${this.lastname}`);
+        },
+      };
+      a.fullname();
 
+      console.log("--------------------------------------------------");
 
-        console.log("utiser this et appel fonction")
-        //Usage de This
-        //object windows ....
-        function maFonction(){
-            console.log(this)
-        }
-        maFonction.call(3)
-        console.log("renvoyer le nom prenom")
-        const a ={
-            firstname:'john',
-            lastname:'doe',
-            fullname: function(){  //en fonction fléch on aurait écrit: fullname:()=>{}
-                console.log(this)
-                 console.log(`${this.firstname} ${this.lastname}`)
-            }
-        }
-        a.fullname()
-
-        console.log("--------------------------------------------------")
-
-
-
-
-
-
-        console.log("fonction fléchée et usage de THIS")
-       /* ça renvoie:
+      console.log("fonction fléchée et usage de THIS");
+      /* ça renvoie:
         { firstname: 'john', lastname: 'doe', fullname: ƒ }
         fonctions.html: 92 john doe
          */
 
-         //usage des methodes
-         console.log('transforme moi'.toUpperCase())
-         //TRANSFORME MOI
-         //percase est une methode, à trouver toutes les methodes dans MDN/ou devdocs
-         //d'ailleur console est une super variable globale et log est une methode
+      //usage des methodes
+      console.log("transforme moi".toUpperCase());
+      //TRANSFORME MOI
+      //percase est une methode, à trouver toutes les methodes dans MDN/ou devdocs
+      //d'ailleur console est une super variable globale et log est une methode
 
+      //Function fléchées
+      const maFonctionFlechee = (param1, param2) => {
+        console.log(param1, param2);
+      };
 
-        //Function fléchées
-        const maFonctionFlechee = (param1, param2)=>{
-            console.log(param1,param2)
+      maFonctionFlechee(1, 2);
+      //1 2
+
+      //la difference avec fonction normal, comportement de this
+      const maFonctionFlechee1 = (param1, param2) => {
+        console.log(param1, param2, this);
+      };
+
+      maFonctionFlechee1.call(1, 2, 3);
+      //1,2, unidefined car this fonctionne pas avec function  flechée,
+      //il ne peut pas alteré, si on enleve les fleche et transforme
+      //en fonction normal, ça renverau 1,2,3
+
+      //simplifier l'ecriture avec des fonctions flechéees dans certains cas
+      //exemple addition
+      const somme = function (a, b) {
+        return a + b;
+      };
+      //ça Devient
+      const somme1 = (a, b) => a + b;
+      console.log(somme(1, 2));
+      console.log(somme1(1, 2));
+
+      //Callback: function déclencheur et imbriquée
+      //lorsqu'un paramettre est une fonction,
+      //on nomme souvent cb au lieu de fn
+
+      console.log("--------------------------------------------------");
+      console.log("nombre pair ou pas");
+      const isPair = function (a, fn) {
+        if (a % 2 === 0) {
+          fn(a);
         }
+      };
 
-        maFonctionFlechee(1,2)
-        //1 2
-
-        //la difference avec fonction normal, comportement de this
-        const maFonctionFlechee1 = (param1, param2) => {
-            console.log(param1, param2, this)
-        }
-
-        maFonctionFlechee1.call(1, 2,3)
-        //1,2, unidefined car this fonctionne pas avec function  flechée,
-        //il ne peut pas alteré, si on enleve les fleche et transforme 
-        //en fonction normal, ça renverau 1,2,3
-
-
-        //simplifier l'ecriture avec des fonctions flechéees dans certains cas
-        //exemple addition
-        const somme=function (a,b){
-            return a+b;
-        }
-        //ça Devient
-        const somme1 =(a,b)=>a+b
-        console.log(somme(1,2))
-        console.log(somme1(1, 2))
-
-        //Callback: function déclencheur et imbriquée
-        //lorsqu'un paramettre est une fonction, 
-        //on nomme souvent cb au lieu de fn
-
-
-        console.log("--------------------------------------------------")
-        console.log("nombre pair ou pas")
-        const isPair=function (a,fn){
-            if(a%2 === 0){
-                fn(a)
-            }
-        }
-
-        isPair(4,function(n){
-            console.log("mon nombre est pair"+n)
-        })
-        console.log("--------------------------------------------------")
-
+      isPair(4, function (n) {
+        console.log("mon nombre est pair" + n);
+      });
+      console.log("--------------------------------------------------");
     </script>
 
     <script>
-         // creer un nombre entr =e 0et 10
-        //33 essaie pour deviner le mot 
+      // creer un nombre entr =e 0et 10
+      //33 essaie pour deviner le mot
 
-        //usage methode math.floor qui transforme le x flottant en entier avec valeur inferieur. faisant fonction E[x]
-        console.log("generateur de nombre avec methode Math.floor ")
-        function getRandomInt(max){
-            return Math.floor(Math.random()*(max+1))
+      //usage methode math.floor qui transforme le x flottant en entier avec valeur inferieur. faisant fonction E[x]
+      console.log("generateur de nombre avec methode Math.floor ");
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * (max + 1));
+      }
+
+      const solution = getRandomInt(10);
+
+      console.log(solution);
+
+      console.log("verification si c'est le chiffre à deviner");
+      function isRight(n) {
+        return solution === n;
+      }
+
+      function guess() {
+        const number = prompt("entre un chiffre") * 1;
+        return isRight(number);
+      }
+
+      for (i = 0; i < 3; i++) {
+        if (guess()) {
+          console.log("bravo");
+          break;
+        } else if (i === 2) {
+          console.log("vous avez perdu");
         }
-
-        const solution = getRandomInt(10)
-
-        console.log(solution)
-
-        console.log("verification si c'est le chiffre à deviner")
-        function isRight(n){
-            return solution === n
-        }
-
-
-        function guess(){
-            const number = prompt('entre un chiffre')*1
-            return isRight(number)
-        }
-
-
-        for (i=0;i<3;i++){
-            if(guess()){
-                console.log("bravo")
-                break
-            }else if(i===2){
-                console.log("vous avez perdu")
-            }
-        }
-        console.log("--------------------------------------------------")
+      }
+      console.log("--------------------------------------------------");
     </script>
 
-
-
-
-
-
-
     <script>
-        //fonction qui dit si un entier est premier ou pas
-        console.log("dire si c'est un nombre premier ou pas")
-        let n =prompt("entrez un chiffre premier")*1
-        function isPremier(n){
-            for(let i=2;i<n;i++){
-                if(n%i===0){
-                    return false
-                }
-            
-            }
-            return true
+      //fonction qui dit si un entier est premier ou pas
+      console.log("dire si c'est un nombre premier ou pas");
+      let n = prompt("entrez un chiffre premier") * 1;
+      function isPremier(n) {
+        for (let i = 2; i < n; i++) {
+          if (n % i === 0) {
+            return false;
+          }
         }
+        return true;
+      }
 
-        if (isPremier(n)===false){
-            console.log("c'est pas premier")
-        }else(
-            console.log("c'est premier")
-        )
-        console.log("--------------------------------------------------")
+      if (isPremier(n) === false) {
+        console.log("c'est pas premier");
+      } else console.log("c'est premier");
+      console.log("--------------------------------------------------");
 
-        /*exo 
+      /*exo 
 
         //afficher tout les nombres premiers entre le n choisis
         let k=[n]
@@ -252,171 +232,148 @@
         }  
         */
 
-        //nombre pair
-        const IsPairNumber = (n) => n%2 === 0
+      //nombre pair
+      const IsPairNumber = (n) => n % 2 === 0;
     </script>
 
-
-
-
-
-
-
     <script>
-        console.log("--------------------------------------------------")
-        console.log("inversement de table")
-        //entrainement
-        function reverseee(array1){
-            console.log('array1:',array1)
+      console.log("--------------------------------------------------");
+      console.log("inversement de table");
+      //entrainement
+      function reverseee(array1) {
+        console.log("array1:", array1);
 
-            const reversed = array1.reverse()
-            console.log('reversed:',reversed)
+        const reversed = array1.reverse();
+        console.log("reversed:", reversed);
+      }
+      const array1 = ["salut", "mamn", "papa", "fils"];
+      reverseee(array1);
+      console.log("--------------------------------------------------");
 
+      //exercice palindrome
+      console.log("Palindrome de teste (inversement se lit pareil)");
+      function isPalindrome(word) {
+        //reverse
+        //split //ça divise cheine caractere
+        //join //ça permet de rejoindre le tableau ensemble
+        //toupllerCase
+
+        //const letters =word.split('')
+        //letters.reverse()
+        //const reversedWord = letters.join('')
+        const reverseWord = word.split("").reverse("").join("");
+
+        console.log(reverseWord);
+        return word.toUpperCase() === reverseWord.toUpperCase();
+      }
+
+      const words = {
+        kayak: true,
+        sos: true,
+        kayak: true,
+        bonjour: false,
+      };
+      for (let word in words) {
+        if (isPalindrome(word) !== words[word]) {
+          console.error(`isPalindrome (${word})`);
         }
-        const array1 = ['salut', 'mamn', 'papa', 'fils']
-        reverseee(array1)
-        console.log("--------------------------------------------------")
-
-        //exercice palindrome
-        console.log("Palindrome de teste (inversement se lit pareil)")
-        function isPalindrome(word){
-            //reverse
-            //split //ça divise cheine caractere
-            //join //ça permet de rejoindre le tableau ensemble
-            //toupllerCase
-
-            //const letters =word.split('')
-            //letters.reverse()
-            //const reversedWord = letters.join('')
-            const reverseWord = word
-                .split('')
-                .reverse('')
-                .join('')
-            
-            console.log(reverseWord)
-            return word.toUpperCase() === reverseWord.toUpperCase()
-
-        }
-
-        const words= {
-            kayak:true,
-            sos:true,
-            kayak:true,
-            bonjour:false
-        }
-        for(let word in words){
-            if(isPalindrome(word) !== words[word]){
-                console.error(`isPalindrome (${word})`)
-            }
-        }
-        console.log("--------------------------------------------------")
+      }
+      console.log("--------------------------------------------------");
     </script>
 
-
-
     <script>
-        console.log("Calcule de moyennne etudiant et structure données ")
-        //calculer la moyenne des élèves
+      console.log("Calcule de moyennne etudiant et structure données ");
+      //calculer la moyenne des élèves
 
-        const students= [
-            {
-                name: 'John',
-                notes:[17,12,14,16,18,20]
-            },
-            {
-                name: 'sam',
-                notes:[5,18,20,35,45,10]
-            },
-            {
-                name: 'nina',
-                notes: [1, 18, 2, 35, 5, 10]
-            }
-        ]
-        
-        console.log("--------------------------------------------------")
+      const students = [
+        {
+          name: "John",
+          notes: [17, 12, 14, 16, 18, 20],
+        },
+        {
+          name: "sam",
+          notes: [5, 18, 20, 35, 45, 10],
+        },
+        {
+          name: "nina",
+          notes: [1, 18, 2, 35, 5, 10],
+        },
+      ];
 
-        console.log("fonction calcule moyenne")
-        //calculer moyenne 
-        const moyenne =(notes)=>{
-            let sum =0
-            for(let note of notes){
-                sum=sum+note
+      console.log("--------------------------------------------------");
 
-            }
-           return sum/notes.length
+      console.log("fonction calcule moyenne");
+      //calculer moyenne
+      const moyenne = (notes) => {
+        let sum = 0;
+        for (let note of notes) {
+          sum = sum + note;
         }
+        return sum / notes.length;
+      };
 
-        console.log("--------------------------------------------------")
-        console.log("ordre de tri")
-       //tris par ordre decroissant (croissan a.moyenne-b.moyenne)
-       const compareStudent=(a,b)=>{
-            return b.moyenne - a.moyenne
-       }
+      console.log("--------------------------------------------------");
+      console.log("ordre de tri");
+      //tris par ordre decroissant (croissan a.moyenne-b.moyenne)
+      const compareStudent = (a, b) => {
+        return b.moyenne - a.moyenne;
+      };
 
-       //rajout attribut moyenne
-        for(let student of students){
-            student.moyenne = moyenne(student.notes)
-            student.worst = Math.min(...student.notes)
-            student.best = Math.max(...student.notes)
+      //rajout attribut moyenne
+      for (let student of students) {
+        student.moyenne = moyenne(student.notes);
+        student.worst = Math.min(...student.notes);
+        student.best = Math.max(...student.notes);
+      }
 
-        }
+      console.log(students);
 
-        console.log(students)
+      console.log("--------------------------------------------------");
+      console.log("methode Sort pour le tri");
 
-        console.log("--------------------------------------------------")
-        console.log("methode Sort pour le tri")
-
-        //fonction de trie avec comparstudent(le trie slectif) ou tri à bulle à voir
-        students.sort(compareStudent)
-        console.log("--------------------------------------------------")
-        console.log("affichage formaté")
-        //pannel des trois premiers
-        const formatStudent = (student)=>{
-            return `${student.name} avec moyenne ${student.moyenne}, sa meilleure note ${student.best} et pire note ${student.worst}`
-        }
-        console.log(`top 3 étudiants
+      //fonction de trie avec comparstudent(le trie slectif) ou tri à bulle à voir
+      students.sort(compareStudent);
+      console.log("--------------------------------------------------");
+      console.log("affichage formaté");
+      //pannel des trois premiers
+      const formatStudent = (student) => {
+        return `${student.name} avec moyenne ${student.moyenne}, sa meilleure note ${student.best} et pire note ${student.worst}`;
+      };
+      console.log(`top 3 étudiants
         1:${formatStudent(students[0])}
         2:${formatStudent(students[1])}
-        3:${formatStudent(students[2])}`)
-        console.log("--------------------------------------------------")
-    
+        3:${formatStudent(students[2])}`);
+      console.log("--------------------------------------------------");
     </script>
 
-
     <script>
-        //compteur de lettre 
-        const phrase = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`
-        //split 
-        //{vous: 3, moi:2}
-        //replace
+      //compteur de lettre
+      const phrase = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`;
+      //split
+      //{vous: 3, moi:2}
+      //replace
 
+      //objet qui regarde les fréquences
+      const frequencies = {};
+      const mot = phrase.split(" "); //tout depend si on met de l'espace  àl'interieur split ou pas
+      console.log("vois le textes separer par mot");
+      console.log(mot);
+      console.log("--------------------------------------------------");
 
+      // ['vous', 'savez,', 'moi', 'je', 'ne', 'crois', 'pas', 'aux', 'vampires']
+      const mot1 = phrase.split(""); //tout depend si on met de l'espace  àl'interieur split ou pas
+      console.log("vois le textes separer par lettre");
+      console.log(mot1);
+      console.log("--------------------------------------------------");
 
-        //objet qui regarde les fréquences
-        const frequencies = {}
-        const mot = phrase.split(' ')  //tout depend si on met de l'espace  àl'interieur split ou pas
-        console.log("vois le textes separer par mot")
-        console.log(mot)
-        console.log("--------------------------------------------------")
+      //['v', 'o', 'u', 's', ' ', 's', 'a', 'v', 'e', 'z', ',', ' ', 'm', .........]
+      const ignored = [",", "?", ".", '"', "!", ":", ";"];
+      let cleanedPhrase = phrase.toLowerCase();
+      for (let character of ignored) {
+        cleanedPhrase = cleanedPhrase.replaceAll(character, "");
+      }
 
-
-        // ['vous', 'savez,', 'moi', 'je', 'ne', 'crois', 'pas', 'aux', 'vampires']
-        const mot1 = phrase.split('')  //tout depend si on met de l'espace  àl'interieur split ou pas 
-        console.log("vois le textes separer par lettre")
-        console.log(mot1)
-        console.log("--------------------------------------------------")
-
-
-
-        //['v', 'o', 'u', 's', ' ', 's', 'a', 'v', 'e', 'z', ',', ' ', 'm', .........]
-        const ignored =[',','?','.','"','!',':',';']
-        let cleanedPhrase = phrase.toLowerCase()
-        for(let character of ignored){
-            cleanedPhrase=cleanedPhrase
-                .replaceAll(character,'')
-        }
-       
-        /*
+      /*
          const mot2 = phrase
             .toLowerCase()//lowercase rend tout en minuscule contrairement à touppercase
             .replaceAll(',','') //remplacer virgule apr caractere vide espace
@@ -425,55 +382,51 @@
             .replace('!', '') //remplacer virgule apr caractere vide espace
             
         */
-       const mot2 = cleanedPhrase
-            .split(' ')
-        console.log("vois le textes separer par mot")
-        console.log(mot2)
-        console.log("--------------------------------------------------")
+      const mot2 = cleanedPhrase.split(" ");
+      console.log("vois le textes separer par mot");
+      console.log(mot2);
+      console.log("--------------------------------------------------");
 
-        
-        for (let word of mot2){
-            if(mot !== '' && word.length >= 4){
-                if(frequencies[word]){
-                    //si on a trouvé quelque chose il fait incrementation, quand c'est pas le cas , undefinied par default c'est falsy
-                        frequencies[word]++
-                }else{
-                    frequencies[word]=1
-                }
-            }
+      for (let word of mot2) {
+        if (mot !== "" && word.length >= 4) {
+          if (frequencies[word]) {
+            //si on a trouvé quelque chose il fait incrementation, quand c'est pas le cas , undefinied par default c'est falsy
+            frequencies[word]++;
+          } else {
+            frequencies[word] = 1;
+          }
         }
-        console.log("vois le textes avec les mots et leur nombre de repetition")
-        console.log(frequencies)
-        console.log("--------------------------------------------------")
+      }
+      console.log("vois le textes avec les mots et leur nombre de repetition");
+      console.log(frequencies);
+      console.log("--------------------------------------------------");
 
+      //on veut connaitre les frequences
+      //on crée un nouveau tableau
+      const frequenciesArray = [];
+      //incrementation
+      for (let k in frequencies) {
+        //insertion valeur au tableau avec methode push : données
+        frequenciesArray.push({
+          // on veut pousser de nouveaux objets dans tableau
+          work: k,
+          count: frequencies[k],
+        });
+      }
 
-        //on veut connaitre les frequences
-        //on crée un nouveau tableau 
-        const frequenciesArray = []
-        //incrementation
-        for(let k in frequencies){
-            //insertion valeur au tableau avec methode push : données
-            frequenciesArray.push({ // on veut pousser de nouveaux objets dans tableau
-                work: k,
-                count: frequencies[k]
-            })
+      //organisation trie
+      frequenciesArray.sort((a, b) => b.count - a.count);
 
-        }
+      console.log(
+        "vois le textes avec les mots et leur nombre de repetition en ordre"
+      );
+      console.log(frequenciesArray);
+      console.log("--------------------------------------------------");
 
-        //organisation trie 
-        frequenciesArray.sort((a,b)=>b.count-a.count)
-
-        console.log("vois le textes avec les mots et leur nombre de repetition en ordre")
-        console.log(frequenciesArray)
-        console.log("--------------------------------------------------")
-
-
-        console.log(`les mots le splus frequents sont:" 
+      console.log(`les mots le splus frequents sont:" 
         ${frequenciesArray[0].work}" avec la frequence "${frequenciesArray[0].count}",
         "${frequenciesArray[1].work}"avec la frequence "${frequenciesArray[1].count}",
-        "${frequenciesArray[2].work}"avec la frequence "${frequenciesArray[2].count}"`)
-
+        "${frequenciesArray[2].work}"avec la frequence "${frequenciesArray[2].count}"`);
     </script>
-    
-</body>
+  </body>
 </html>

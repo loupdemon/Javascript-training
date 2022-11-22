@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>modules</title>
+</head>
+<body>
+    <script type="module">
+        import {sum , hello as bonjour} from './array.js' //oncommence par . si chemin relativf et et commence par slash chemin absoliue ou url si c lien
+        console.log(sum([12,23,19]))
+        console.log(bonjour())
+        //on peut renomer nos variable importé si tel alias ou nom existe dans un autre fichier importé , cela avec as
+
+        //on peut importer toutes les variable d'un fichier en une variable exemple ici A
+        import * as A from'./import.js'
+        console.log(A.add([5,2]))
+        console.log(A.sous([5, 2]))
+
+        //import par defaul
+        import hello from './importDefault.js'
+        console.log(hello())
+
+
+        //import par default non nomm
+        import {default as salut} from './importWithoutNom.js'
+        console.log(salut())
+
+        console.log(import('./array2.js').then((...args)=>{
+            console.log(args)
+            //dans promise on peut voir sur notre console nos differentes methodes
+            //puis il suffit d'appeler la methode desiré comme ici add
+        }))
+
+        console.log(import('./array2.js').then(({goodmorning}) => {
+                goodmorning()
+            }))
+
+        (async function () {
+            const { goodevening } =await import('./array2.js')
+             goodevening() 
+            })()
+    </script>
+</body>
+</html>
