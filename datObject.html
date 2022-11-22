@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Objet date</title>
+  </head>
+  <body>
+    <script>
+      new Date();
+      //Tue Nov 22 2022 15:11:18 GMT+0100 (heure normale d’Europe centrale)
+      new Date(10);
+      //ça va donner 10 milisecondes à partir du 1er janvier 1970
+      //Thu Jan 01 1970 01:00:00 GMT+0100 (heure normale d’Europe centrale)
+      new Date(2022, 0, 1);
+      //Sat Jan 01 2022 00:00:00 GMT+0100 (heure normale d’Europe centrale)
+      new Date(2022, 0, 32);
+      //Tue Feb 01 2022 00:00:00 GMT+0100 (heure normale d’Europe centrale)
+      new Date(2022, 14, 1);
+      //Wed Mar 01 2023 00:00:00 GMT+0100 (heure normale d’Europe centrale)
+      new Date(2022, 0, 22).getTimezoneOffset();
+      //-60  dit qu'on a 60 min de date entrée et l'UTC
+      //getHours //renvoie numero du jour de semaine en anglais ça commence par dimanche
+      //getDay
+      //..
+
+      //formatage de date en iso
+      new Date().toISOString();
+      //'2022-11-22T14:30:44.267Z'
+      new Date().toUTCString();
+      //'Tue, 22 Nov 2022 14:31:27 GMT'
+      new Date().toLocaleDateString();
+      //'22/11/2022'
+      new Date().toLocaleDateString("en-US");
+      //'11/22/2022'
+      //new Date().toLocaleDateString(undefined,{dateStyle:'medium',timeStyle:'long'})
+      console.log("-------------------------------------------------------");
+      console.log("une fonction qui affiche la date du lendemain");
+
+      function addDays(date, days) {
+        const newDate = new Date(date.getTime());
+        newDate.setDate(newDate.getDate() + days);
+        return newDate;
+      }
+      const today = new Date();
+      const tomorrow = addDays(today, 1);
+
+      console.log(today);
+      console.log(tomorrow);
+
+      console.log("-------------------------------------------------------");
+      console.log(
+        "une fonction qui rajoute des jours ou mois ou ans et afiche le resultat"
+      );
+
+      const M = `months`;
+      const D = "days";
+      const Y = "years";
+      function addInterval(date, n, unit) {
+        const newDate = new Date(date.getTime());
+        switch (unit) {
+          case D:
+            newDate.setDate(newDate.getDate() + n);
+            break;
+          case M:
+            newDate.setMonth(newDate.getMonth() + n);
+            break;
+          case Y:
+            newDate.setFullYear(newDate.getFullYear() + n);
+            break;
+          default:
+            print("error");
+        }
+        return newDate;
+      }
+
+      const today1 = new Date();
+      const futureMois = addInterval(today1, 3, M);
+      const futureJour = addInterval(today1, 52, D);
+      const futureAnne = addInterval(today1, 6, Y);
+
+      console.log(today1);
+      console.log(futureMois);
+      console.log(futureJour);
+      console.log(futureAnne);
+
+      console.log("-------------------------------------------------------");
+      console.log("une fonction qui rajoute meme chose d'une autre methode");
+
+      const MONTHS = 1;
+      const DAYS = 2;
+      const YEARS = 0;
+      const MINUTES = 4;
+      const SECONDS = 5;
+
+      function addTime(date, n, unit) {
+        const parts = [
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          date.getHours(),
+          date.getMinutes(),
+          date.getSeconds(),
+          date.getMilliseconds(),
+        ];
+        parts[unit] += n;
+        return new Date(...parts);
+      }
+
+      const aujourdhui = new Date();
+      const futuredate = addTime(aujourdhui, 5, MONTHS);
+      console.log(aujourdhui);
+      console.log(futuredate);
+
+      console.log("-------------------------------------------------------");
+      console.log(
+        "une fonction qui modifie date daans ces socondes, minutes, annes à la fois"
+      );
+
+      function addTemps(date, interval) {
+        const parts = [
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          date.getHours(),
+          date.getMinutes(),
+          date.getSeconds(),
+          date.getMilliseconds(),
+        ];
+        for (const [unit, value] of Object.entries(interval)) {
+          parts[unit] += value;
+        }
+
+        return new Date(...parts);
+      }
+
+      const maintenant = new Date();
+      const avenir = addTemps(maintenant, {
+        [MONTHS]: 8,
+        [DAYS]: 3,
+        [YEARS]: 10,
+      });
+      console.log(maintenant);
+      console.log(avenir);
+
+      console.log("-------------------------------------------------------");
+      console.log(
+        "recuperer le nombdre de seconde et tems entre cette date nouvelle et celle d'aujourd'hui timestamp"
+      );
+
+      console.log((avenir.getTime() - Date.now()) / 1000);
+
+      //Remarque: quand on travaille avec les dates, il faut eviter les effets de bord
+    </script>
+  </body>
+</html>
